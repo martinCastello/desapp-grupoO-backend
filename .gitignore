@@ -1,8 +1,8 @@
 HELP.md
 .gradle
 /build/
-/bin/main/
-/bin/test/
+**/bin/main/
+**/bin/test/
 
 # Ignore Gradle GUI config
 gradle-app.setting
