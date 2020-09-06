@@ -1,1 +1,1 @@
-heroku war:deploy build/libs/*.war --app backend
+deploy:war build/libs/*.war --app whispering-spire-55253
