@@ -1,0 +1,1 @@
+heroku war:deploy build/libs/*.war --app backend
