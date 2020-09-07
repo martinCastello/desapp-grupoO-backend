@@ -61,8 +61,11 @@ jacocoTestReport {
 task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 task copyToLib(type: Copy) {
-    into "$buildDir/libs"
+    into "build/libs"
     from(configurations.compile)
+    rename {
+        'app.war'
+    }
 }
 
 stage.dependsOn(copyToLib)
