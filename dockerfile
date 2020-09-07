@@ -43,6 +43,6 @@ RUN set -o errexit -o nounset \
     && echo "Testing Gradle installation" \
     && gradle --version
 #FROM openjdk:11-jdk
-ARG WAR_FILE=target/*.war
+ARG WAR_FILE=build/libs/*.war
 COPY ${WAR_FILE} app.war
 ENTRYPOINT ["java","-jar","/app.war"]
