@@ -1,1 +1,1 @@
-deploy:war build/libs/*.war --app whispering-spire-55253
+web: java -jar build/server/webapp-runner-*.jar build/libs/*.war

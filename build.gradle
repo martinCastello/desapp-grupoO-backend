@@ -47,6 +47,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
+	//compile 'com.github.jsimone:webapp-runner:8.5.11.3'
 }
 
 test {
@@ -56,3 +57,17 @@ test {
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
+
+/*task stage() {
+    dependsOn clean, war
+}
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$build/server"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)*/

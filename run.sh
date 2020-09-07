@@ -13,7 +13,7 @@ then
     echo "Using existing image"
 else
     echo "Create image"
-    docker build build --build-arg JAR_FILE=build/libs/*.war -t springio/desapp-grupo-o-backend .
+    docker build --build-arg WAR_FILE=build/libs/*.war -t springio/desapp-grupo-o-backend .
     echo "Success create image"
 fi
 
