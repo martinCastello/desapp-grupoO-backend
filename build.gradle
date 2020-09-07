@@ -58,22 +58,19 @@ jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
 }
 
-war {
+/*war {
     baseName = 'app'
     version = '0.0.1'
-}
+}*/
 
-/*task stage(dependsOn: ['build', 'clean'])
+task stage(dependsOn: ['build', 'clean'])
 build.mustRunAfter clean
 task copyToLib(type: Copy) {
     into "build/libs"
     from(configurations.compile)
-    rename {
-        'app.war'
-    }
 }
 
-stage.dependsOn(copyToLib)*/
+stage.dependsOn(copyToLib)
 
 /*task stage() {
     dependsOn clean, war
