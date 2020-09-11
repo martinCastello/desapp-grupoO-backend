@@ -35,22 +35,40 @@ class UserTest {
 		User anAnnonimousUser= UserBuilder.createUser().build();
 		User notAnAnnonimousUser= UserBuilder.createUser().build();
 		
-		notAnAnnonimousUser= notAnAnnonimousUser.signUp("Michael Jackson", "michael@mail.com", "mjackson", "Neverland123");
+		assertDoesNotThrow(() -> {
+			notAnAnnonimousUser.signUp("Moria Casan", "moria1@mail.com", "moriaOne", "123");
+		});
+//		assertNotEquals(anAnnonimousUser.mail, notAnAnnonimousUser.mail);
+//		assertNotEquals(anAnnonimousUser.password, notAnAnnonimousUser.password);
 		
-		assertNotEquals(anAnnonimousUser.mail, notAnAnnonimousUser.mail);
-		assertNotEquals(anAnnonimousUser.password, notAnAnnonimousUser.password);
 		
 	}
 	
-	@Test//(expected = Exception.class)
+	@Test	
 	
 	void whenAnUserTryToRegisterWithAnEmptyFieldItsThrowsAnException() throws Exception {
 		
 		User aUser= UserBuilder.createUser().build();
 		User anOtherUser= UserBuilder.createUser().build();
 
-		aUser= aUser.signUp("Michael Jackson", "", "mjackson", "Neverland123");
-		anOtherUser= anOtherUser.signUp("Moria Casan", "moria1@mail.com", "moriaOne", "");
+		 Exception exceptionAnOtherUser = assertThrows(
+				 Exception.class, 
+				    () -> {
+				    	aUser.signUp("Michael Jackson", "", "mjackson", "Neverland123");
+				    }
+				  );
+		 
+		 Exception exceptionUser = assertThrows(
+				 Exception.class, 
+				    () -> {
+				    	aUser.signUp("Michael Jackson", "", "mjackson", "Neverland123");
+				    }
+				  );
+
+		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionAnOtherUser.getMessage());
+		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionUser.getMessage());
+		
+		
 		
 	}
 
