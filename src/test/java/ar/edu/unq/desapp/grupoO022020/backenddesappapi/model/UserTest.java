@@ -13,6 +13,16 @@ class UserTest {
 	}
 	
 	@Test
+	void  givenANewUserWeCanSetANameAndAEmail() {
+		String name = "New User Name";
+		String email = "newMailAddress@mail.com";
+		User newUser = UserBuilder.createUser().withName(name).withMail(email).build(UserType.Common);
+
+		assertEquals(name, newUser.name);
+		assertEquals(email, newUser.mail);
+	}
+	
+	@Test
 	void givenTwoNewUsersWithoutValuesInAttributesWhenIGetTheirNicknameTheirReturnEmpty() {
 		User firstNewUser = UserBuilder.createUser().build(UserType.Common);
 		User secondNewUser = UserBuilder.createUser().build(UserType.Common);
