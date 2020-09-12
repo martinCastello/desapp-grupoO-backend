@@ -25,7 +25,7 @@ class UserTest {
 		User commonUser = UserBuilder.createUser().build(UserType.Common);
 		User adminUser  = UserBuilder.createUser().build(UserType.Admin);
 		
-//		assert(adminUser.getClass() == AdminUser.class);
+		assert(adminUser.getClass() == AdminUser.class);
 		assertNotEquals(commonUser.getClass(), adminUser.getClass());
 	}
 	
