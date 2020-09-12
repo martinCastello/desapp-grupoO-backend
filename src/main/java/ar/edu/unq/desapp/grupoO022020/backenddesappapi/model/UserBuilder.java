@@ -9,11 +9,14 @@ public class UserBuilder {
 	private String mail = "mail@mail.com";
 	private String nickName= "secret_donor"; 
 	private String password= "genericPassword";
-	private UserType userType = UserType.Common;
 	
-	public User build() {
-		User newUser=  new User(name, mail, nickName, password, userType);
-		return newUser;
+	public User build(UserType type) {
+		if(type == UserType.Common) {
+			return  new UserDonator(name, mail, nickName, password);
+		}
+		else {
+			return  new AdminUser(name, mail, nickName, password);
+		}
 	}
 	
 	public UserBuilder withName(String newName) {
@@ -26,10 +29,4 @@ public class UserBuilder {
 		return this;
 	}
 	
-
-	
-	public UserBuilder adminUser() {
-		userType= UserType.Admin;
-		return this;
-	}
 }

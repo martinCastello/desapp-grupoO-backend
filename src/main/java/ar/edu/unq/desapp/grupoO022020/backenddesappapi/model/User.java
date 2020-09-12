@@ -5,23 +5,28 @@ public class User {
     String nickName; 
     String mail;
     String password;
-    UserType userType;
     
-    public User(String name,String mail, String nickName,String password, UserType type) 
+    public User(String name,String mail, String nickName,String password) 
     { 
         this.name = name; 
         this.mail = mail;
         this.nickName = nickName; 
         this.password = password; 
-        this.userType = type;
     } 
     
-    public User signUp(String name, String mail, String nickName, String Password) throws Exception {
+    public void signUp(String name, String mail, String nickName, String password) throws Exception {
     	
     	if (name.isEmpty() || nickName.isEmpty() || mail.isEmpty() || password.isEmpty()) {
     		throw new Exception("Los campos obligatorios no pueden ser vacios");
     	}
-    	return new User(name,mail,nickName,password, UserType.Common);
+    	this.name = name;
+    	this.mail = mail;
+    	this.nickName = nickName;
+    	this.password = password;
+    }
+    
+    public boolean isAGenericUser() {
+    	return this.password == "genericPassword" && this.name.isEmpty();
     }
 }
 

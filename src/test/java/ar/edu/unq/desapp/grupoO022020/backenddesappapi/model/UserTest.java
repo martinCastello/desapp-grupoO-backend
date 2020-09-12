@@ -8,38 +8,39 @@ class UserTest {
 
 	@Test
 	void  givenANewUserWithoutValuesInAttributesWhenIGetItsNameItsReturnEmpty() {
-		User newUser = UserBuilder.createUser().build();
+		User newUser = UserBuilder.createUser().build(UserType.Common);
 		assert( newUser.name.isEmpty());
 	}
 	
 	@Test
 	void givenTwoNewUsersWithoutValuesInAttributesWhenIGetTheirNicknameTheirReturnEmpty() {
-		User firstNewUser = UserBuilder.createUser().build();
-		User secondNewUser = UserBuilder.createUser().build();
+		User firstNewUser = UserBuilder.createUser().build(UserType.Common);
+		User secondNewUser = UserBuilder.createUser().build(UserType.Common);
 		
 		assertEquals(firstNewUser.nickName, secondNewUser.nickName);
 	}
 	
 	@Test
 	void givenANewAdminUserWeCanKnowThatIsDifferentThanTOtherCommonUser () {
-		User commonUser= UserBuilder.createUser().build();
-		User adminUser= UserBuilder.createUser().adminUser().build();
+		User commonUser = UserBuilder.createUser().build(UserType.Common);
+		User adminUser  = UserBuilder.createUser().build(UserType.Admin);
 		
-		assert(adminUser.userType == UserType.Admin);
-		assertNotEquals(commonUser.userType, adminUser.userType);
+//		assert(adminUser.getClass() == AdminUser.class);
+		assertNotEquals(commonUser.getClass(), adminUser.getClass());
 	}
 	
 	@Test
 	
 	void whenAnUserSignedUpItsHasNotTheSamePasswordOfGenericUsers() throws Exception {
-		User anAnnonimousUser= UserBuilder.createUser().build();
-		User notAnAnnonimousUser= UserBuilder.createUser().build();
+		User anAnnonimousUser= UserBuilder.createUser().build(UserType.Common);
+		User notAnAnnonimousUser= UserBuilder.createUser().build(UserType.Common);
 		
 		assertDoesNotThrow(() -> {
 			notAnAnnonimousUser.signUp("Moria Casan", "moria1@mail.com", "moriaOne", "123");
 		});
-//		assertNotEquals(anAnnonimousUser.mail, notAnAnnonimousUser.mail);
-//		assertNotEquals(anAnnonimousUser.password, notAnAnnonimousUser.password);
+		assert(anAnnonimousUser.isAGenericUser());
+		assert(!notAnAnnonimousUser.isAGenericUser());
+		assertNotEquals(anAnnonimousUser.password, notAnAnnonimousUser.password);
 		
 		
 	}
@@ -48,8 +49,8 @@ class UserTest {
 	
 	void whenAnUserTryToRegisterWithAnEmptyFieldItsThrowsAnException() throws Exception {
 		
-		User aUser= UserBuilder.createUser().build();
-		User anOtherUser= UserBuilder.createUser().build();
+		User aUser= UserBuilder.createUser().build(UserType.Common);
+		User anOtherUser= UserBuilder.createUser().build(UserType.Common);
 
 		 Exception exceptionAnOtherUser = assertThrows(
 				 Exception.class, 
@@ -61,14 +62,15 @@ class UserTest {
 		 Exception exceptionUser = assertThrows(
 				 Exception.class, 
 				    () -> {
-				    	aUser.signUp("Michael Jackson", "", "mjackson", "Neverland123");
+				    	anOtherUser.signUp("Ricardo Montaner", "", "rmontaner", "montaner1");
 				    }
 				  );
 
 		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionAnOtherUser.getMessage());
 		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionUser.getMessage());
-		
-		
+
+		assert(aUser.isAGenericUser());
+		assert(aUser.isAGenericUser());
 		
 	}
 
