@@ -10,13 +10,11 @@ public class UserBuilder {
 	private String nickName= "secret_donor"; 
 	private String password= "genericPassword";
 	
-	public User build(UserType type) {
-		if(type == UserType.Common) {
-			return  new UserDonator(name, mail, nickName, password);
-		}
-		else {
-			return  new AdminUser(name, mail, nickName, password);
-		}
+	public UserDonator buildDonator() {
+		return  new UserDonator(name, mail, nickName, password);
+	}
+	public AdminUser buildAdmin() {
+		return  new AdminUser(name, mail, nickName, password);
 	}
 	
 	public UserBuilder withName(String newName) {

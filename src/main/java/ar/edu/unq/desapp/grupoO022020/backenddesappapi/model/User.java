@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
-public class User {
+abstract class User {
 	String name; 
     String nickName; 
     String mail;
