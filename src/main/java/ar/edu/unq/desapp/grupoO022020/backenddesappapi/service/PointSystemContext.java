@@ -1,9 +1,9 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
 
 public class PointSystemContext {
-	private IPointSystemStrategy system;
+	private IPointSystemState system;
 	
-	public PointSystemContext(IPointSystemStrategy system) {
+	public PointSystemContext(IPointSystemState system) {
 		this.system = system;
 	}
 	

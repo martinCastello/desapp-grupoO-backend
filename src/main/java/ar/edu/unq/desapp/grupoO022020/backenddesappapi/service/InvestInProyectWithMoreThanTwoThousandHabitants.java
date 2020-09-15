@@ -1,10 +1,10 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
 
-public class InvestInProyectWithMoreThanTwoThousandHabitants implements IPointSystemStrategy {
+public class InvestInProyectWithMoreThanTwoThousandHabitants implements IPointSystemState {
 
 	@Override
 	public int givePointsToUser(Donation donation) {
-		return 0;
+		return (int) Math.round(donation.investment);
 	}
 
 }
