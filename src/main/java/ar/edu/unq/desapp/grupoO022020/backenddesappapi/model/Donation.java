@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
+package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
 import java.sql.Date;
 import java.util.Calendar;
