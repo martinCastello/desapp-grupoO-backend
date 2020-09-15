@@ -5,7 +5,7 @@ import java.util.Date;
 public class ProjectBuilder {
 
 	private Integer factor = 1000;
-	private Float percentage; // Porcentaje mínimo de cierre de proyecto: de 50% a 100%
+	private Float percentage;
 	private String name;
 	private Date endDate;
 	private Date startDate;
