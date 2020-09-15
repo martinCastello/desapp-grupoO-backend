@@ -21,16 +21,19 @@ class ProjectTest {
 	void  givenANewProjectWithoutValuesInAttributesWhenIGetItsNameItsReturnEmpty() {
 		Project newProject = ProjectBuilder.createProject().build();
 		
-		assertEquals(newProject.getName(), null);
+		assert(newProject.getName().isEmpty());
 	}
 
 	@Test
 	void  givenANewProjectWeCanSetANameAndAStartDate() {
 		String name = "New Project Name";
+		Integer factor = 20000;
 		Date startDate = new Date();
-		Project newProject = ProjectBuilder.createProject().withName(name).withStartDate(startDate).build();
+		Project newProject = ProjectBuilder.createProject().withName(name)
+				.withFactor(factor).withStartDate(startDate).build();
 		
 		assertEquals(name, newProject.getName());
+		assertEquals(factor, newProject.getFactor());
 		assertEquals(startDate, newProject.getStartDate());
 	}
 	

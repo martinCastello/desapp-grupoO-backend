@@ -4,11 +4,11 @@ import java.util.Date;
 
 public class ProjectBuilder {
 
-	private Integer factor = 1000;
-	private Float percentage;
-	private String name;
-	private Date endDate;
-	private Date startDate;
+	private Integer factor;
+	private Float percentage = 0.25F;
+	private String name = "";
+	private Date endDate = new Date(new Date().getTime()+1000); 
+	private Date startDate = new Date();
 	
 	public static ProjectBuilder createProject() {
 		return new ProjectBuilder();
@@ -41,7 +41,8 @@ public class ProjectBuilder {
 	
 	public Project build() {
 		Project project = new Project();
-		project.setFactor(this.factor);
+		if(this.factor != null)
+			project.setFactor(this.factor);
 		project.setPercentage(this.percentage);
 		project.setName(this.name);
 		project.setEndDate(this.endDate);
