@@ -1,6 +1,6 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
-import java.util.*;
+import java.util.Date;
 
 public class Donation {
 	private UserDonator user;
@@ -8,73 +8,83 @@ public class Donation {
 	private Float investment;
 	private Date date;
 	private IPointSystemState pointSystemState;
-	
+
 	public Donation(UserDonator user, String project, Float invest) {
-		this.project = project;
-		this.investment = invest;
-		this.date = new Date();
-		this.user= user;
-		this.pointSystemState= getStateForDonation();
-		this.user= this.pointSystemState.givePointsToUser(this);
+		this.setProject(project);
+		this.setInvestment(invest);
+		this.setDate(new Date());
+		this.setUser(user);
+		this.setUserPoints();
+		this.pointSystemState.givePointsToUser(this);
 	}
-	
-	//region GETTERS
-	
+
+	// region GETTERS
+
 	public String getProject() {
 		return this.project;
 	}
+
 	public Float getInvestment() {
 		return this.investment;
 	}
+
 	public Date getDate() {
 		return this.date;
 	}
+
 	public UserDonator getUser() {
 		return this.user;
 	}
+
 	public int getUserPoints() {
-		return this.getUser().points; //hacer getters y setters en usuario
+		return this.getUser().points; // hacer getters y setters en usuario
 	}
-	
-	//endregion
 
+	// endregion
 
-	//region SETTERS
-	
+	// region SETTERS
+
 	public void setProject(String project) {
 		this.project = project;
 	}
+
 	public void setInvestment(Float investment) {
 		this.investment = investment;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	public void setUser(UserDonator user) {
 		this.user = user;
 	}
-	
-	//endregion
-	
-	//region Private
-	
-	private IPointSystemState getStateForDonation() {		
-		if(this.getUserNameForDonator().contains("month")) {
+
+	public void setUserPoints() {
+		this.pointSystemState = getStateForDonation(); // hacer getters y setters en usuario
+	}
+
+	// endregion
+
+	// region Private
+
+	private IPointSystemState getStateForDonation() {
+		if (this.getUserNameForDonator().contains("month")) {
 			return new InvestInMoreThanOneProjectInCalendarMonth();
 		}
-		if(this.project.contains("1000pesos")) {
+		if (this.project.contains("1000pesos")) {
 			return new InvestInProyectCollectionGreaterThanThousandPesos();
 		}
 		return new InvestInProyectWithMoreThanTwoThousandHabitants();
 	}
-	
-	//endregion
-	
-	//region PUBLIC
-	
+
+	// endregion
+
+	// region PUBLIC
+
 	public String getUserNameForDonator() {
 		return this.user.nickName;
 	}
-	
-	//endregion
+
+	// endregion
 }
