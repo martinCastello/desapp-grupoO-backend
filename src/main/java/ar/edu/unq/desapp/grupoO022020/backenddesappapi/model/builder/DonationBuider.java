@@ -1,18 +1,24 @@
-package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
+package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder;
+
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Donation;
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.UserDonator;
 
 public class DonationBuider {
 	public static DonationBuider createDonation() {
 		return new DonationBuider();
 	}
-	private String user = "";
+	private UserDonator user = UserBuilder.createUser().buildDonator();
 	private String project = "new project";
 	private Float invest= (float) 100.50;
 	
-	public Donation create() {
+	public DonationBuider create() {
+		return new DonationBuider();
+	}
+	public Donation build() {
 		return new Donation(user, project, invest);
 	}
 
-	public DonationBuider withUser(String user) {
+	public DonationBuider withUser(UserDonator user) {
 		this.user = user;
 		return this;
 	}
