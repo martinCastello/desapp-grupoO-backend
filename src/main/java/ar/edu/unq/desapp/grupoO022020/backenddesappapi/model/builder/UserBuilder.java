@@ -1,4 +1,7 @@
-package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
+package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder;
+
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.AdminUser;
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.UserDonator;
 
 public class UserBuilder {
 	
@@ -19,6 +22,12 @@ public class UserBuilder {
 	
 	public UserBuilder withName(String newName) {
 		name= newName;
+		return this;
+	}
+	
+
+	public UserBuilder withNickName(String newNickName) {
+		nickName= newNickName;
 		return this;
 	}
 	

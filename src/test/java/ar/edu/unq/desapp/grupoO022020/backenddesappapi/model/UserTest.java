@@ -3,6 +3,8 @@ package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder;
+
 
 class UserTest {
 
