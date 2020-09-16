@@ -1,14 +1,15 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
 
 public class LocationBuilder {
-	public static LocationBuilder createLocation() {
-		return new LocationBuilder();
-	}
+	
 	private String name; 
 	private String province;
 	private Double population;
 	private Boolean status;
-
+	
+	public static LocationBuilder createLocation() {
+		return new LocationBuilder();
+	}
 
 	public Location build() {
 		Location location = new Location(name, province, population, status);

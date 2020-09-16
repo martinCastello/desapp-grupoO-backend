@@ -1,11 +1,10 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
 
 public class Location {
-	String name;
-
-	String province;
-	Double population;
-	Boolean status;
+	private String name;
+	private String province;
+	private Double population;
+	private Boolean status;
 
 	public String getName() {
 		return name;
