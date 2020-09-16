@@ -1,4 +1,4 @@
-package ar.edu.unq.desapp.grupoO022020.backenddesappapi.service;
+package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,7 +10,7 @@ public class LocationTest {
 	public void testCreateLocation() {
 		Location newLocation = LocationBuilder.createLocation().build();
 		newLocation.setName("Quilmes");
-		assertEquals(newLocation.name, "Quilmes");
+		assertEquals(newLocation.getName(), "Quilmes");
 	}
 
 	@Test
