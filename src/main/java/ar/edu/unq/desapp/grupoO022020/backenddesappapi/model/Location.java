@@ -4,7 +4,7 @@ public class Location {
 	private String name;
 	private String province;
 	private Double population;
-	private Boolean status;
+	private Boolean isConnected;
 
 	public String getName() {
 		return name;
@@ -30,18 +30,18 @@ public class Location {
 		this.population = population;
 	}
 
-	public Boolean getStatus() {
-		return status;
+	public Boolean getIsConnected() {
+		return isConnected;
 	}
 
-	public void setStatus(Boolean status) {
-		this.status = status;
+	public void setIsConnected(Boolean status) {
+		this.isConnected = status;
 	}
 
 	public Location(String name, String province, Double population, Boolean status) {
-		this.name = name;
-		this.province = province;
-		this.population = population;
-		this.status = status;
+		this.setName(name);
+		this.setProvince(province);
+		this.setPopulation(population);
+		this.setIsConnected(status);
 	}
 }

@@ -35,6 +35,6 @@ public class LocationTest {
 	@Test
 	public void testLocationStatus() {
 		Location newLocation = LocationBuilder.createLocation().withStatus(false).build();
-		assertEquals(newLocation.getStatus(), false);
+		assertEquals(newLocation.getIsConnected(), false);
 	}
 }
