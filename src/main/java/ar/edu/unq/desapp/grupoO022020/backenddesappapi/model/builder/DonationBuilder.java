@@ -4,9 +4,9 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Donation;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.UserDonator;
 
-public class DonationBuider {
-	public static DonationBuider createDonation() {
-		return new DonationBuider();
+public class DonationBuilder {
+	public static DonationBuilder createDonation() {
+		return new DonationBuilder();
 	}
 
 	private UserDonator user = UserBuilder.createUser().buildDonator();
@@ -17,17 +17,17 @@ public class DonationBuider {
 		return new Donation(user, project, invest);
 	}
 
-	public DonationBuider withUser(UserDonator user) {
+	public DonationBuilder withUser(UserDonator user) {
 		this.user = user;
 		return this;
 	}
 
-	public DonationBuider withProject(Project project) {
+	public DonationBuilder withProject(Project project) {
 		this.project = project;
 		return this;
 	}
 
-	public DonationBuider withInvest(Float invest) {
+	public DonationBuilder withInvest(Float invest) {
 		this.invest = invest;
 		return this;
 	}
