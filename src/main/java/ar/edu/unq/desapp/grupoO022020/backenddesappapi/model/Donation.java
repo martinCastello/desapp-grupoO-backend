@@ -83,7 +83,7 @@ public class Donation {
 	// region PUBLIC
 
 	public String getUserNameForDonator() {
-		return this.user.nickName;
+		return this.user.getNickName();
 	}
 
 	// endregion

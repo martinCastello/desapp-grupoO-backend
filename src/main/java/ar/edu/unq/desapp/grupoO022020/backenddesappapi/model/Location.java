@@ -3,9 +3,16 @@ package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 public class Location {
 	private String name;
 	private String province;
-	private Double population;
+	private Integer population;
 	private Boolean isConnected;
 
+	public Location(String name, String province, Integer population, Boolean isConnected) {
+		this.setName(name);
+		this.setProvince(province);
+		this.setPopulation(population);
+		this.setIsConnected(isConnected);
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -22,11 +29,11 @@ public class Location {
 		this.province = province;
 	}
 
-	public Double getPopulation() {
+	public Integer getPopulation() {
 		return population;
 	}
 
-	public void setPopulation(Double population) {
+	public void setPopulation(Integer population) {
 		this.population = population;
 	}
 
@@ -34,14 +41,7 @@ public class Location {
 		return isConnected;
 	}
 
-	public void setIsConnected(Boolean status) {
-		this.isConnected = status;
-	}
-
-	public Location(String name, String province, Double population, Boolean status) {
-		this.setName(name);
-		this.setProvince(province);
-		this.setPopulation(population);
-		this.setIsConnected(status);
+	public void setIsConnected(Boolean isConnected) {
+		this.isConnected = isConnected;
 	}
 }
