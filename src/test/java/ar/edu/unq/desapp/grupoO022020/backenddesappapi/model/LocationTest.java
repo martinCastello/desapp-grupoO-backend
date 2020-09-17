@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.LocationBuilder;
+
 public class LocationTest {
 
 	@Test
@@ -28,8 +30,8 @@ public class LocationTest {
 
 	@Test
 	public void testLocationPopulation() {
-		Location newLocation = LocationBuilder.createLocation().withPopulation(10.5).build();
-		assertEquals(newLocation.getPopulation(), 10.5);
+		Location newLocation = LocationBuilder.createLocation().withPopulation(10000L).build();
+		assertEquals(newLocation.getPopulation(), 10000);
 	}
 
 	@Test
