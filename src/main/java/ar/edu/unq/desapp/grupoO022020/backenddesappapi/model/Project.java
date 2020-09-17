@@ -49,7 +49,7 @@ public class Project {
 	public Float getAmountCollected() {
 		return this.amountCollected;
 	}
-	public Long getAmountNeeded() {
+	public Integer getAmountNeeded() {
 		return this.getFactor()*this.location.getPopulation();
 	}
 	public Float getAmountMin() {

@@ -55,4 +55,11 @@ abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public void updateInformation(String name, String mail, String password) {
+		this.setName(name);
+		this.setMail(mail);
+		this.setPassword(password);
+		
+	}
 }

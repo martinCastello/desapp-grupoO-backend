@@ -90,9 +90,7 @@ class UserTest {
 	@Test
 	void givenANewCommonUserWeCanChangeNameAndMailAndPassword() {
 		User commonUser = UserBuilder.createUser().buildDonator();
-		commonUser.setName("other name");
-		commonUser.setMail("other mail");
-		commonUser.setPassword("other Password");
+		commonUser.updateInformation("other name", "other mail", "other Password"); 
 		
 		assertEquals("other name", commonUser.getName());
 		assertEquals("other mail", commonUser.getMail());

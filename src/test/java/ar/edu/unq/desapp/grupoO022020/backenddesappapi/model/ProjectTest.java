@@ -72,7 +72,7 @@ class ProjectTest {
 	
 	@Test
 	void  givenANewProjectWeCanSetALocalidad() {
-		Location aLocation = new Location("Varela", "Buenos Aires", 200000L, Boolean.FALSE);
+		Location aLocation = new Location("Varela", "Buenos Aires", 200000, Boolean.FALSE);
 		Project newProject = ProjectBuilder.createProject().withLocation(aLocation).build();
 		
 		assertEquals(aLocation, newProject.getLocation());
@@ -80,7 +80,7 @@ class ProjectTest {
 	
 	@Test
 	void givenANewProjectWeCanSetALocalidadWith150000populationItsReturnAmount() {
-		Location aLocation = new Location("La Plata", "Buenos Aires", 150000L, Boolean.FALSE);
+		Location aLocation = new Location("La Plata", "Buenos Aires", 150000, Boolean.FALSE);
 		Project newProject = ProjectBuilder.createProject().withLocation(aLocation).build();
 		
 		assertEquals(0, newProject.getAmountCollected());

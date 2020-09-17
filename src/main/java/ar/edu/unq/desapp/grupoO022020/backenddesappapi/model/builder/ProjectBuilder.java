@@ -12,7 +12,7 @@ public class ProjectBuilder {
 	private String name = "New Project Name";
 	private Date endDate = new Date(new Date().getTime()+1000); 
 	private Date startDate = new Date();
-	private Location location = new Location("Quilmes", "Buenos Aires", 350000L, Boolean.FALSE);
+	private Location location = new Location("Quilmes", "Buenos Aires", 350000, Boolean.FALSE);
 	
 	public static ProjectBuilder createProject() {
 		return new ProjectBuilder();

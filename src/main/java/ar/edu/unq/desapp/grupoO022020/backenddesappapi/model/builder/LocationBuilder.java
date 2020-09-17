@@ -4,10 +4,10 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Location;
 
 public class LocationBuilder {
 	
-	private String name; 
-	private String province;
-	private Long population;
-	private Boolean isConnected;
+	private String name = "Berazategui"; 
+	private String province = "Buenos Aires";
+	private Integer population = 100000;
+	private Boolean isConnected = Boolean.FALSE;
 	
 	public static LocationBuilder createLocation() {
 		return new LocationBuilder();
@@ -27,7 +27,7 @@ public class LocationBuilder {
 		return this;
 		
 	}
-	public LocationBuilder withPopulation(Long aPopulation) {
+	public LocationBuilder withPopulation(Integer aPopulation) {
 		this.population = aPopulation;
 		return this;
 		
