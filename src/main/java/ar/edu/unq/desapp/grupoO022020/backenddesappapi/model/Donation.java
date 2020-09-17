@@ -69,13 +69,7 @@ public class Donation {
 	// region Private
 
 	private IPointSystemState getStateForDonation() {
-		if (this.getUserNameForDonator().contains("month")) {
-			return new InvestInMoreThanOneProjectInCalendarMonth();
-		}
-		if (this.project.getFactor() == 1000) {
-			return new InvestInProyectCollectionGreaterThanThousandPesos();
-		}
-		return new InvestInProyectWithMoreThanTwoThousandHabitants();
+
 	}
 
 	// endregion
