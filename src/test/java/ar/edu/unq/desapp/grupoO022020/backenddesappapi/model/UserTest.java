@@ -9,19 +9,26 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder
 class UserTest {
 
 	@Test
-	void  givenANewUserWithoutValuesInAttributesWhenIGetItsNameItsReturnEmpty() {
+	void givenANewUserWithoutValuesInAttributesWhenIGetItsNameItsReturnEmpty() {
 		User newUser = UserBuilder.createUser().buildDonator();
-		assert( newUser.name.isEmpty());
+		assertTrue(newUser.getName().isEmpty());
 	}
 	
 	@Test
-	void  givenANewUserWeCanSetANameAndAEmail() {
+	void givenANewUserWeCanSetANameAndAEmail() {
 		String name = "New User Name";
 		String email = "newMailAddress@mail.com";
 		User newUser = UserBuilder.createUser().withName(name).withMail(email).buildDonator();
 
-		assertEquals(name, newUser.name);
-		assertEquals(email, newUser.mail);
+		assertEquals(name, newUser.getName());
+		assertEquals(email, newUser.getMail());
+	}
+	
+	@Test
+	void givenANewUserWithNickNameItsReturn() {
+		User newUser = UserBuilder.createUser().withNickName("new nick name").buildDonator();
+
+		assertEquals("new nick name", newUser.getNickName());
 	}
 	
 	@Test
@@ -29,7 +36,7 @@ class UserTest {
 		User firstNewUser = UserBuilder.createUser().buildDonator();
 		User secondNewUser = UserBuilder.createUser().buildDonator();
 		
-		assertEquals(firstNewUser.nickName, secondNewUser.nickName);
+		assertEquals(firstNewUser.getNickName(), secondNewUser.getNickName());
 	}
 	
 	@Test
@@ -42,7 +49,6 @@ class UserTest {
 	}
 	
 	@Test
-	
 	void whenAnUserSignedUpItsHasNotTheSamePasswordOfGenericUsers() throws Exception {
 		User anAnnonimousUser= UserBuilder.createUser().buildDonator();
 		User notAnAnnonimousUser= UserBuilder.createUser().buildDonator();
@@ -52,15 +58,11 @@ class UserTest {
 		});
 		assert(anAnnonimousUser.isAGenericUser());
 		assert(!notAnAnnonimousUser.isAGenericUser());
-		assertNotEquals(anAnnonimousUser.password, notAnAnnonimousUser.password);
-		
-		
+		assertNotEquals(anAnnonimousUser.getPassword(), notAnAnnonimousUser.getPassword());
 	}
 	
 	@Test	
-	
 	void whenAnUserTryToRegisterWithAnEmptyFieldItsThrowsAnException() throws Exception {
-		
 		User aUser= UserBuilder.createUser().buildDonator();
 		User anOtherUser= UserBuilder.createUser().buildDonator();
 
@@ -83,7 +85,16 @@ class UserTest {
 
 		assert(aUser.isAGenericUser());
 		assert(aUser.isAGenericUser());
+	}
+	
+	@Test
+	void givenANewCommonUserWeCanChangeNameAndMailAndPassword() {
+		User commonUser = UserBuilder.createUser().buildDonator();
+		commonUser.updateInformation("other name", "other mail", "other Password"); 
 		
+		assertEquals("other name", commonUser.getName());
+		assertEquals("other mail", commonUser.getMail());
+		assertEquals("other Password", commonUser.getPassword());
 	}
 
 }
