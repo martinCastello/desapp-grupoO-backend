@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder;
 
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Donation;
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.UserDonator;
 
 public class DonationBuider {
@@ -9,7 +10,7 @@ public class DonationBuider {
 	}
 
 	private UserDonator user = UserBuilder.createUser().buildDonator();
-	private String project = "new project";
+	private Project project = ProjectBuilder.createProject().build();
 	private Float invest = (float) 100.50;
 
 	public Donation build() {
@@ -21,7 +22,7 @@ public class DonationBuider {
 		return this;
 	}
 
-	public DonationBuider withProject(String project) {
+	public DonationBuider withProject(Project project) {
 		this.project = project;
 		return this;
 	}

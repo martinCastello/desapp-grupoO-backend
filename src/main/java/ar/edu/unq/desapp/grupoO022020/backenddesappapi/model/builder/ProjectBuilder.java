@@ -1,6 +1,8 @@
-package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
+package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder;
 
 import java.util.Date;
+
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.Project;
 
 public class ProjectBuilder {
 

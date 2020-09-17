@@ -4,12 +4,12 @@ import java.util.Date;
 
 public class Donation {
 	private UserDonator user;
-	private String project;
+	private Project project;
 	private Float investment;
 	private Date date;
 	private IPointSystemState pointSystemState;
 
-	public Donation(UserDonator user, String project, Float invest) {
+	public Donation(UserDonator user, Project project, Float invest) {
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());
@@ -20,7 +20,7 @@ public class Donation {
 
 	// region GETTERS
 
-	public String getProject() {
+	public Project getProject() {
 		return this.project;
 	}
 
@@ -44,7 +44,7 @@ public class Donation {
 
 	// region SETTERS
 
-	public void setProject(String project) {
+	public void setProject(Project project) {
 		this.project = project;
 	}
 
@@ -72,7 +72,7 @@ public class Donation {
 		if (this.getUserNameForDonator().contains("month")) {
 			return new InvestInMoreThanOneProjectInCalendarMonth();
 		}
-		if (this.project.contains("1000pesos")) {
+		if (this.project.getFactor() == 1000) {
 			return new InvestInProyectCollectionGreaterThanThousandPesos();
 		}
 		return new InvestInProyectWithMoreThanTwoThousandHabitants();

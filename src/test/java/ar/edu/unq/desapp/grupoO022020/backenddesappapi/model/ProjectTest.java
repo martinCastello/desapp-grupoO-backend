@@ -8,6 +8,8 @@ import java.util.Date;
 
 import org.junit.jupiter.api.Test;
 
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.ProjectBuilder;
+
 class ProjectTest {
 	
 	@Test
