@@ -4,23 +4,19 @@ import java.util.Date;
 
 public class Donation {
 	private UserDonator user;
-	private String project;
+	private Project project;
 	private Float investment;
 	private Date date;
-	private IPointSystemState pointSystemState;
 
-	public Donation(UserDonator user, String project, Float invest) {
+	public Donation(UserDonator user, Project project, Float invest) {
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());
 		this.setUser(user);
-		this.setUserPoints();
-		this.pointSystemState.givePointsToUser(this);
+		PointCalculatorContext.givePointsToUser(this);
 	}
 
-	// region GETTERS
-
-	public String getProject() {
+	public Project getProject() {
 		return this.project;
 	}
 
@@ -37,14 +33,10 @@ public class Donation {
 	}
 
 	public int getUserPoints() {
-		return this.getUser().points; // hacer getters y setters en usuario
+		return this.getUser().getPoints();
 	}
 
-	// endregion
-
-	// region SETTERS
-
-	public void setProject(String project) {
+	public void setProject(Project project) {
 		this.project = project;
 	}
 
@@ -60,31 +52,15 @@ public class Donation {
 		this.user = user;
 	}
 
-	public void setUserPoints() {
-		this.pointSystemState = getStateForDonation(); // hacer getters y setters en usuario
-	}
-
-	// endregion
-
-	// region Private
-
-	private IPointSystemState getStateForDonation() {
-		if (this.getUserNameForDonator().contains("month")) {
-			return new InvestInMoreThanOneProjectInCalendarMonth();
-		}
-		if (this.project.contains("1000pesos")) {
-			return new InvestInProyectCollectionGreaterThanThousandPesos();
-		}
-		return new InvestInProyectWithMoreThanTwoThousandHabitants();
-	}
-
-	// endregion
-
-	// region PUBLIC
-
 	public String getUserNameForDonator() {
-		return this.user.getNickName();
+		return this.getUser().getNickName();
 	}
 
-	// endregion
+	public Integer getPoblationOfLocation() {
+		return this.getProject().getPopulation();
+	}
+
+	public Float getProjectCollectedMoney() {
+		return this.getProject().getAmountCollected();
+	}
 }
