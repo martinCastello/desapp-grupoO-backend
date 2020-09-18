@@ -100,7 +100,7 @@ class ProjectTest {
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test
+	@Test // porque tiene un if esto y no esta la logica en otro lugar del modelo?
 	void givenANewProjectItsIsProjectNotSameCurrentMonthSoNotIsNextToEnd() {
 		int currentYear = new Date().getYear();
 		int currentMonth = new Date().getMonth();

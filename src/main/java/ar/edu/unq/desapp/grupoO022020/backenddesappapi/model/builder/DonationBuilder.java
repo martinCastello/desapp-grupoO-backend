@@ -11,7 +11,7 @@ public class DonationBuilder {
 
 	private UserDonator user = UserBuilder.createUser().buildDonator();
 	private Project project = ProjectBuilder.createProject().build();
-	private Float invest = (float) 100.50;
+	private Float invest = 0F;
 
 	public Donation build() {
 		return new Donation(user, project, invest);

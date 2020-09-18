@@ -13,9 +13,9 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder
 
 public class DonationTest {
 	@Test
-	void givenANewDonationForAnUserWeCanKnowThatHasAnInvestGreaterThanZero() {
+	void givenANewDonationForAnUserWeCanKnowThatHasAnInvestEqualsToZero() {
 		Donation firstDonation = DonationBuilder.createDonation().build();
-		assert (firstDonation.getInvestment() > 0);
+		assertEquals(firstDonation.getInvestment(), 0);
 	}
 
 	@Test

@@ -7,7 +7,6 @@ public class Donation {
 	private Project project;
 	private Float investment;
 	private Date date;
-	private PointCalculatorContext pointCalculator;
 
 	public Donation(UserDonator user, Project project, Float invest) {
 		this.setProject(project);
@@ -54,14 +53,14 @@ public class Donation {
 	}
 
 	public String getUserNameForDonator() {
-		return this.user.getNickName();
+		return this.getUser().getNickName();
 	}
 
 	public Integer getPoblationOfLocation() {
-		return this.project.getPopulation();
+		return this.getProject().getPopulation();
 	}
 
 	public Float getProjectCollectedMoney() {
-		return this.project.getAmountCollected();
+		return this.getProject().getAmountCollected();
 	}
 }
