@@ -1,15 +1,26 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
-abstract class PointCalculatorContext {
-	private IPointSystemState system;
+final class PointCalculatorContext {
 
-	public PointCalculatorContext(Donation donation) {
-		if (this.getUserNameForDonator().contains("month")) {
-			this.system = new InvestInMoreThanOneProjectInCalendarMonth();
+	private static IPointSystemState getPointSystem(Donation donation) {
+		IPointSystemState system = null;
+		if (donation.getUserNameForDonator().contains("month")) {
+			return new InvestInMoreThanOneProjectInCalendarMonth();
 		}
-		if (this.project.getFactor() == 1000) {
-			this.system = new InvestInProyectCollectionGreaterThanThousandPesos();
+		if (donation.getProjectCollectedMoney() >= 1000.00F) {
+			return new InvestInProyectCollectionGreaterThanOneThousandPesos();
 		}
-		this.system = new InvestInProyectWithMoreThanTwoThousandHabitants();
+		if (donation.getPoblationOfLocation() < 2000) {
+			return new InvestInProyectWithMoreThanTwoThousandHabitants();
+		}
+		return system;
 	}
+
+	public static void givePointsToUser(Donation donation) {
+		IPointSystemState system = getPointSystem(donation);
+		if (system != null) {
+			system.givePointsToUser(donation);
+		}
+	}
+
 }

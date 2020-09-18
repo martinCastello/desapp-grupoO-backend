@@ -1,11 +1,11 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
-public class InvestInProyectCollectionGreaterThanThousandPesos implements IPointSystemState {
+public class InvestInProyectCollectionGreaterThanOneThousandPesos implements IPointSystemState {
 
 	@Override
 	public void givePointsToUser(Donation donation) {
 		UserDonator user = donation.getUser();
-		user.points = (int) (donation.getInvestment() * 2);
+		user.points += (donation.getInvestment());
 	}
 
 }

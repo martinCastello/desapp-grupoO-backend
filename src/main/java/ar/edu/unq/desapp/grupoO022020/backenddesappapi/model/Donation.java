@@ -7,18 +7,15 @@ public class Donation {
 	private Project project;
 	private Float investment;
 	private Date date;
-	private IPointSystemState pointSystemState;
+	private PointCalculatorContext pointCalculator;
 
 	public Donation(UserDonator user, Project project, Float invest) {
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());
 		this.setUser(user);
-		this.setUserPoints();
-		this.pointSystemState.givePointsToUser(this);
+		PointCalculatorContext.givePointsToUser(this);
 	}
-
-	// region GETTERS
 
 	public Project getProject() {
 		return this.project;
@@ -37,12 +34,8 @@ public class Donation {
 	}
 
 	public int getUserPoints() {
-		return this.getUser().points; // hacer getters y setters en usuario
+		return this.getUser().points;
 	}
-
-	// endregion
-
-	// region SETTERS
 
 	public void setProject(Project project) {
 		this.project = project;
@@ -60,25 +53,15 @@ public class Donation {
 		this.user = user;
 	}
 
-	public void setUserPoints() {
-		this.pointSystemState = getStateForDonation(); // hacer getters y setters en usuario
-	}
-
-	// endregion
-
-	// region Private
-
-	private IPointSystemState getStateForDonation() {
-
-	}
-
-	// endregion
-
-	// region PUBLIC
-
 	public String getUserNameForDonator() {
 		return this.user.getNickName();
 	}
 
-	// endregion
+	public Integer getPoblationOfLocation() {
+		return this.project.getPopulation();
+	}
+
+	public Float getProjectCollectedMoney() {
+		return this.project.getAmountCollected();
+	}
 }

@@ -5,7 +5,7 @@ public class InvestInProyectWithMoreThanTwoThousandHabitants implements IPointSy
 	@Override
 	public void givePointsToUser(Donation donation) {
 		UserDonator user = donation.getUser();
-		user.points = (int) Math.round(donation.getInvestment());
+		user.points += (int) (donation.getInvestment() * 2);
 	}
 
 }

@@ -10,9 +10,10 @@ public class ProjectBuilder {
 	private Integer factor;
 	private Float percentage;
 	private String name = "New Project Name";
-	private Date endDate = new Date(new Date().getTime() + 1000);
 	private Date startDate = new Date();
+	private Date endDate = new Date(this.startDate.getTime() + 1000);
 	private Location location = new Location("Quilmes", "Buenos Aires", 350000, Boolean.FALSE);
+	private Float amountCollect = 0F;
 
 	public static ProjectBuilder createProject() {
 		return new ProjectBuilder();
@@ -48,8 +49,13 @@ public class ProjectBuilder {
 		return this;
 	}
 
+	public ProjectBuilder withAmountCollect(Float amout) {
+		this.amountCollect = amout;
+		return this;
+	}
+
 	public Project build() {
-		Project project = new Project(this.name, this.endDate, this.startDate, this.location);
+		Project project = new Project(this.name, this.endDate, this.startDate, this.location, this.amountCollect);
 		if (this.factor != null)
 			project.setFactor(this.factor);
 		if (this.percentage != null)
