@@ -5,7 +5,7 @@ public class InvestInProyectCollectionGreaterThanOneThousandPesos implements IPo
 	@Override
 	public void givePointsToUser(Donation donation) {
 		UserDonator user = donation.getUser();
-		user.setPoints(user.getPoints() + (donation.getInvestment()));
+		user.setPoints(user.getPoints() + (int) Math.round(donation.getInvestment()));
 	}
 
 }
