@@ -33,7 +33,7 @@ public class Donation {
 	}
 
 	public int getUserPoints() {
-		return this.getUser().points;
+		return this.getUser().getPoints();
 	}
 
 	public void setProject(Project project) {

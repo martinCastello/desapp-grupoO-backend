@@ -18,8 +18,7 @@ public class Project {
 		this.endDate = endDate;
 		this.startDate = startDate;
 		this.location = location;
-		this.amountCollected = amount;// esto solo es para el caso de poder validar los test pero el valor deberia ser
-										// 0F.
+		this.amountCollected = 0F;
 	}
 
 	public Integer getFactor() {
@@ -84,6 +83,10 @@ public class Project {
 
 	public Integer getPopulation() {
 		return this.location.getPopulation();
+	}
+
+	public void addAmount(Float amount) {
+		this.amountCollected += amount;
 	}
 
 }

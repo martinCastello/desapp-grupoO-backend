@@ -41,19 +41,19 @@ public class DonationTest {
 		Project project = ProjectBuilder.createProject().withLocation(location).withAmountCollect(200.00F).build();
 
 		Donation aDonation = DonationBuilder.createDonation().withProject(project).withInvest(100.00f).build();
-		System.out.print(aDonation.getUserPoints());
+
 		assertEquals(200, aDonation.getUserPoints());
 	}
 
-	@Test
-	void givenANewDonationOfOneHundredOfPesosInAProjectWithMoreThanOneThousandPesosThePointsForTheUserItsGonnaBeOneHundred() {
-
-		Project project = ProjectBuilder.createProject().withAmountCollect(1000.00F).build();
-
-		Donation aDonation = DonationBuilder.createDonation().withProject(project).withInvest(100.00f).build();
-
-		assertEquals(100, aDonation.getUserPoints());
-	}
+//	@Test
+//	void givenANewDonationOfOneHundredOfPesosInAProjectWithMoreThanOneThousandPesosThePointsForTheUserItsGonnaBeOneHundred() {
+//
+//		Project project = ProjectBuilder.createProject().withAmountCollect(1000.00F).build();
+//
+//		Donation aDonation = DonationBuilder.createDonation().withProject(project).withInvest(100.00f).build();
+//
+//		assertEquals(100, aDonation.getUserPoints());
+//	}
 
 	@Test
 	void givenADOnationOfOneHundredOfPesosFromAnUserThatAlreadyMakesOneInThisCalendarMonthWeKnowThatThePointForThatsUserItsGonnaBeFiveHundreadMoreThanNow() {

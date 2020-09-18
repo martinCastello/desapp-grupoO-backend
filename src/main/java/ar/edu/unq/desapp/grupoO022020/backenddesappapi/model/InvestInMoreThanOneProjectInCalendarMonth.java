@@ -5,7 +5,7 @@ public class InvestInMoreThanOneProjectInCalendarMonth implements IPointSystemSt
 	@Override
 	public void givePointsToUser(Donation donation) {
 		UserDonator user = donation.getUser();
-		user.points += 500;
+		user.setPoints(user.getPoints() + 500);
 	}
 
 }

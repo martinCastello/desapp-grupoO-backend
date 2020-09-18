@@ -13,7 +13,7 @@ public class ProjectBuilder {
 	private Date startDate = new Date();
 	private Date endDate = new Date(this.startDate.getTime() + 1000);
 	private Location location = new Location("Quilmes", "Buenos Aires", 350000, Boolean.FALSE);
-	private Float amountCollect = 0F;
+	private Float amountCollect;
 
 	public static ProjectBuilder createProject() {
 		return new ProjectBuilder();
@@ -60,6 +60,8 @@ public class ProjectBuilder {
 			project.setFactor(this.factor);
 		if (this.percentage != null)
 			project.setPercentage(this.percentage);
+		if (this.amountCollect != null)
+			project.addAmount(this.amountCollect);
 		return project;
 	}
 
