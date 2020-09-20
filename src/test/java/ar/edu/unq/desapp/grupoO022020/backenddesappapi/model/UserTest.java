@@ -79,8 +79,8 @@ class UserTest {
 			anOtherUser.signUp("Ricardo Montaner", "", "rmontaner", "montaner1");
 		});
 
-		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionAnOtherUser.getMessage());
-		assertEquals("Los campos obligatorios no pueden ser vacios", exceptionUser.getMessage());
+		assertEquals("Required fields cannot be empty", exceptionAnOtherUser.getMessage());
+		assertEquals("Required fields cannot be empty", exceptionUser.getMessage());
 
 		assertTrue(aUser.isAGenericUser());
 		assertTrue(aUser.isAGenericUser());

@@ -14,6 +14,7 @@ public class Donation {
 		this.setDate(new Date());
 		this.setUser(user);
 		PointCalculatorContext.givePointsToUser(this);
+		project.addObserver(user);
 	}
 
 	public Project getProject() {

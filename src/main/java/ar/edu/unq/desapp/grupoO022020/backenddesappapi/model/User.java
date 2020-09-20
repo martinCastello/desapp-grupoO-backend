@@ -16,7 +16,7 @@ abstract class User {
 	public void signUp(String name, String mail, String nickName, String password) throws Exception {
     	
     	if (name.isEmpty() || nickName.isEmpty() || mail.isEmpty() || password.isEmpty()) {
-    		throw new Exception("Los campos obligatorios no pueden ser vacios");
+    		throw new Exception("Required fields cannot be empty");
     	}
     	this.name = name;
     	this.mail = mail;

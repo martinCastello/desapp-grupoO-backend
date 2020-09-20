@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.Date;
 
 public class Project {
@@ -10,6 +12,16 @@ public class Project {
 	private Date startDate;
 	private Location location;
 	private Float amountCollected;
+	private Boolean isClosed;
+
+	public Boolean getIsClosed() {
+		return isClosed;
+	}
+
+	public void setIsClosed(Boolean isClosed) {
+		this.isClosed = isClosed;
+	}
+	PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
 
 	public Project(String name, Date endDate, Date startDate, Location location, Float amount) {
 		this.factor = 1000; // de 0 a $100.000
@@ -19,7 +31,9 @@ public class Project {
 		this.startDate = startDate;
 		this.location = location;
 		this.amountCollected = 0F;
+		this.isClosed=false;
 	}
+
 
 	public Integer getFactor() {
 		return factor;
@@ -88,5 +102,18 @@ public class Project {
 	public void addAmount(Float amount) {
 		this.amountCollected += amount;
 	}
+
+
+	public void addObserver(PropertyChangeListener l) {
+		pcs.addPropertyChangeListener("theProperty", l);
+	}
+
+	public void setProperty(Boolean val) {
+		Boolean old = this.isClosed;
+		this.isClosed = val;
+		pcs.firePropertyChange("theProperty", old, val);
+	}
+	public String toString() { return "The project object"; }
+
 
 }
