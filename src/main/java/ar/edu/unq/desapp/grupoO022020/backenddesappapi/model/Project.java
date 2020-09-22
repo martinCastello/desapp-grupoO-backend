@@ -30,7 +30,7 @@ public class Project {
 
 	private void validationDates() throws Exception {
 		if(this.getStartDate().after(this.getEndDate()))
-			throw new Exception("Inconsistency in dates");
+			throw new Exception();// "Inconsistency in dates"
 	}
 
 	public Integer getFactor() {
