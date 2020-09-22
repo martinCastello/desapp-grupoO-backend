@@ -25,11 +25,11 @@ public class SenderEmailTest {
 		
 		Donation aDonation = DonationBuilder.createDonation().withUser(userDonatorObs).withProject(newProject).withInvest(100.00f).build();		
 		
-		Boolean unfinished= newProject.isOpen();
+		Boolean unfinished= aDonation.getProject().isOpen();
 		
-		newProject.setProperty(unfinished);
+		aDonation.getProject().setProperty(unfinished);
 		
-		assertEquals(newProject.getIsClosed(),true);
+		assertEquals(aDonation.getProject().getIsClosed(),true);
 
 	}
 
