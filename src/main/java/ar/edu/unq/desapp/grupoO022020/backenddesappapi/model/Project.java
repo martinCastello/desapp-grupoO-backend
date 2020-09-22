@@ -84,10 +84,9 @@ public class Project {
 	public Float getPercentageAmountcollected() {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
-
-//	public Boolean isOpen() {
-//		Date currentDate = new Date();
-//		return currentDate.before(this.getEndDate()) || this.getAmountCollected() < this.getAmountMin();
+	
+//	public Boolean canBeClosed() {
+//		return this.getEndDate().before(new Date()) && this.getAmountCollected() > this.getAmountMin();
 //	}
 
 	public Boolean isNextToEnd() {
