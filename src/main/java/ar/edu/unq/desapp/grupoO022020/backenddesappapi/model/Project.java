@@ -13,7 +13,8 @@ public class Project {
 	private Location location;
 	private Float amountCollected;
 	private Boolean isClosed;
-
+	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
+	
 	public Boolean getIsClosed() {
 		return isClosed;
 	}
@@ -21,7 +22,6 @@ public class Project {
 	public void setIsClosed(Boolean isClosed) {
 		this.isClosed = isClosed;
 	}
-	PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
 
 	public Project(String name, Date endDate, Date startDate, Location location, Float amount) {
 		this.factor = 1000; // de 0 a $100.000
