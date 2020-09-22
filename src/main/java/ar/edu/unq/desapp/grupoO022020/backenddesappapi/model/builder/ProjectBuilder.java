@@ -13,7 +13,7 @@ public class ProjectBuilder {
 	private Date startDate = new Date();
 	private Date endDate = new Date(this.startDate.getTime() + 1000);
 	private Location location = new Location("Quilmes", "Buenos Aires", 350000, Boolean.FALSE);
-	private Float amountCollect;
+	private Float amountCollected;
 
 	public static ProjectBuilder createProject() {
 		return new ProjectBuilder();
@@ -50,18 +50,18 @@ public class ProjectBuilder {
 	}
 
 	public ProjectBuilder withAmountCollect(Float amout) {
-		this.amountCollect = amout;
+		this.amountCollected = amout;
 		return this;
 	}
 
-	public Project build() {
-		Project project = new Project(this.name, this.endDate, this.startDate, this.location, this.amountCollect);
+	public Project build() throws Exception {
+		Project project = new Project(this.name, this.endDate, this.startDate, this.location);
 		if (this.factor != null)
 			project.setFactor(this.factor);
 		if (this.percentage != null)
 			project.setPercentage(this.percentage);
-		if (this.amountCollect != null)
-			project.addAmount(this.amountCollect);
+		if (this.amountCollected != null)
+			project.addAmount(this.amountCollected);
 		return project;
 	}
 

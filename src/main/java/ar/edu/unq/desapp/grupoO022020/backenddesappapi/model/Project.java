@@ -1,5 +1,8 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Project {
@@ -10,8 +13,10 @@ public class Project {
 	private Date startDate;
 	private Location location;
 	private Float amountCollected;
+	private Boolean isClosed;
+	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
 
-	public Project(String name, Date endDate, Date startDate, Location location, Float amount) {
+	public Project(String name, Date endDate, Date startDate, Location location) throws Exception {
 		this.factor = 1000; // de 0 a $100.000
 		this.percentage = 1F; // Porcentaje mínimo de cierre de proyecto: de 50% a 100%
 		this.name = name;
@@ -19,6 +24,13 @@ public class Project {
 		this.startDate = startDate;
 		this.location = location;
 		this.amountCollected = 0F;
+		this.isClosed = false;
+		this.validationDates();
+	}
+
+	public void validationDates() throws Exception {
+		if(this.getStartDate().after(this.getEndDate()))
+			throw new Exception("Inconsistency in dates");
 	}
 
 	public Integer getFactor() {
@@ -56,6 +68,10 @@ public class Project {
 	public Float getAmountCollected() {
 		return this.amountCollected;
 	}
+	
+	public Boolean isClosed() {
+		return this.isClosed;
+	}
 
 	public Integer getAmountNeeded() {
 		return this.getFactor() * this.location.getPopulation();
@@ -68,17 +84,17 @@ public class Project {
 	public Float getPercentageAmountcollected() {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
+	
+//	public Boolean canBeClosed() {
+//		return this.getEndDate().before(new Date()) && this.getAmountCollected() > this.getAmountMin();
+//	}
 
-	public Boolean isOpen() {
-		Date currentDate = new Date();
-		return currentDate.before(this.getEndDate()) || this.getAmountCollected() < this.getAmountMin();
-	}
-
-	@SuppressWarnings("deprecation")
 	public Boolean isNextToEnd() {
-		Date currentDate = new Date();
-		return currentDate.getYear() == this.getEndDate().getYear()
-				&& currentDate.getMonth() == this.getEndDate().getMonth();
+		Calendar currentDate = Calendar.getInstance();
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(this.getEndDate());
+		return currentDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR)
+				&& currentDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH);
 	}
 
 	public Integer getPopulation() {
@@ -88,5 +104,17 @@ public class Project {
 	public void addAmount(Float amount) {
 		this.amountCollected += amount;
 	}
+
+
+	public void addObserver(PropertyChangeListener l) {
+		pcs.addPropertyChangeListener("theProperty", l);
+	}
+
+	public void close() {
+		Boolean old = this.isClosed;
+		this.isClosed = true;
+		pcs.firePropertyChange("theProperty", old, this.isClosed);
+	}
+	
 
 }

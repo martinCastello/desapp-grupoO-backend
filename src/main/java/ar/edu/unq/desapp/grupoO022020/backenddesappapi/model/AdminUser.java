@@ -6,4 +6,8 @@ public class AdminUser extends User{
 		super(name, mail, nickName, password);
 	}
 	
+	public void closeProject(Project project) {
+		project.close();
+	}
+	
 }

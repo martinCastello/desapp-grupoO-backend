@@ -1,8 +1,7 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,16 +9,17 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.DonationBui
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.LocationBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.ProjectBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder;
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.utils.DateUtils;
 
 public class DonationTest {
 	@Test
-	void givenANewDonationForAnUserWeCanKnowThatHasAnInvestEqualsToZero() {
+	void givenANewDonationForAnUserWeCanKnowThatHasAnInvestEqualsToZero() throws Exception {
 		Donation firstDonation = DonationBuilder.createDonation().build();
 		assertEquals(firstDonation.getInvestment(), 0);
 	}
 
 	@Test
-	void givenANewDonationForAnEspecificUserWeCanKnowWhoDidIt() {
+	void givenANewDonationForAnEspecificUserWeCanKnowWhoDidIt() throws Exception {
 		String userName = "ozzy666";
 		UserDonator userDonator = UserBuilder.createUser().withNickName(userName).buildDonator();
 
@@ -29,14 +29,14 @@ public class DonationTest {
 	}
 
 	@Test
-	void whenWeCreateANewDonationTheDateWeCanAssertThatItsSaveTheTodaysDate() {
+	void whenWeCreateANewDonationTheDateWeCanAssertThatItsSaveTheTodaysDate() throws Exception {
 		Donation aDonation = DonationBuilder.createDonation().build();
-		Date today = new Date();
-		assertEquals(today, aDonation.getDate());
+
+		assertTrue(DateUtils.isToday(aDonation.getDate()));
 	}
 
 	@Test
-	void givenANewDonationOfOneHundredOfPesosInAProjectForALocationWithLessThanAThousanddHabitantThePointsForTheUserItsGonnaBeTwoHundred() {
+	void givenANewDonationOfOneHundredOfPesosInAProjectForALocationWithLessThanAThousanddHabitantThePointsForTheUserItsGonnaBeTwoHundred() throws Exception {
 		Location location = LocationBuilder.createLocation().withPopulation(1000).build();
 		Project project = ProjectBuilder.createProject().withLocation(location).withAmountCollect(200.00F).build();
 
@@ -46,7 +46,7 @@ public class DonationTest {
 	}
 
 	@Test
-	void givenANewDonationOfOneHundredOfPesosInAProjectWithMoreThanOneThousandPesosThePointsForTheUserItsGonnaBeOneHundred() {
+	void givenANewDonationOfOneHundredOfPesosInAProjectWithMoreThanOneThousandPesosThePointsForTheUserItsGonnaBeOneHundred() throws Exception {
 
 		Project project = ProjectBuilder.createProject().withAmountCollect(1000.00F).build();
 
@@ -56,7 +56,7 @@ public class DonationTest {
 	}
 
 	@Test
-	void givenADOnationOfOneHundredOfPesosFromAnUserThatAlreadyMakesOneInThisCalendarMonthWeKnowThatThePointForThatsUserItsGonnaBeFiveHundreadMoreThanNow() {
+	void givenADOnationOfOneHundredOfPesosFromAnUserThatAlreadyMakesOneInThisCalendarMonthWeKnowThatThePointForThatsUserItsGonnaBeFiveHundreadMoreThanNow() throws Exception {
 		String userName = "month";
 		// Simulamos que ya realizo una donacion un dia del presente mes y hoy realiza
 		// otra
