@@ -8,7 +8,6 @@ import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.DonationBuilder;
-import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.LocationBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.ProjectBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder;
 
@@ -30,7 +29,6 @@ public class SenderEmailTest {
 		
 		newProject.setProperty(unfinished);
 		
-		newProject.addObserver(aDonation.getUser());
 		assertEquals(newProject.getIsClosed(),true);
 
 	}
