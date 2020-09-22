@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,21 +15,21 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder
 public class SenderEmailTest {
 
 	@Test
-	void givenANewProjectIsClosedAndDonorUsersAreNotified() throws ParseException {
+	void givenANewProjectIsClosedAndDonorUsersAreNotified() throws Exception {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date endDate = formatter.parse("2021-04-08");
 		Project newProject = ProjectBuilder.createProject().withEndDate(endDate).build();
-		String userName = "Pepe";
-		UserDonator userDonatorObs = UserBuilder.createUser().withNickName(userName).buildDonator();
+		UserDonator userDonatorObs = UserBuilder.createUser().buildDonator();
+		AdminUser admin = new AdminUser("root", "root@gmail.com", "admin", "admin");
 		
 		Donation aDonation = DonationBuilder.createDonation().withUser(userDonatorObs).withProject(newProject).withInvest(100.00f).build();		
 		
-		Boolean unfinished= aDonation.getProject().isOpen();
+		assertFalse(aDonation.getProject().getIsClosed());
 		
-		aDonation.getProject().setProperty(unfinished);
+		admin.closeProject(aDonation.getProject());
 		
-		assertEquals(aDonation.getProject().getIsClosed(),true);
+		assertTrue(aDonation.getProject().getIsClosed());
 
 	}
 
