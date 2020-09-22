@@ -151,7 +151,7 @@ class ProjectTest {
 				.build();
 		});
 		
-		assertEquals(Exception.class, exceptionStartDateGreaterThanEndDate.getClass());
+		assertEquals("Inconsistency in dates", exceptionStartDateGreaterThanEndDate.getMessage());
 	}
 
 }

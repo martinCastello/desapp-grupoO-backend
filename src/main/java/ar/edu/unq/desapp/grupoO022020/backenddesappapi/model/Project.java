@@ -28,9 +28,9 @@ public class Project {
 		this.validationDates();
 	}
 
-	private void validationDates() throws Exception {
+	public void validationDates() throws Exception {
 		if(this.getStartDate().after(this.getEndDate()))
-			throw new Exception();// "Inconsistency in dates"
+			throw new Exception("Inconsistency in dates");
 	}
 
 	public Integer getFactor() {
