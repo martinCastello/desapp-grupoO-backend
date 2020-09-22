@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,19 @@ public class DonationTest {
 	@Test
 	void whenWeCreateANewDonationTheDateWeCanAssertThatItsSaveTheTodaysDate() throws Exception {
 		Donation aDonation = DonationBuilder.createDonation().build();
-		Date today = new Date();
-		assertEquals(today, aDonation.getDate());
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date today = calendar.getTime();
+		calendar.setTime(aDonation.getDate());
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date donationDate = calendar.getTime();
+		assertEquals(today, donationDate);
 	}
 
 	@Test
