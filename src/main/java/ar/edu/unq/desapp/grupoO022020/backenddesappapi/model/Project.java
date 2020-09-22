@@ -68,6 +68,10 @@ public class Project {
 	public Float getAmountCollected() {
 		return this.amountCollected;
 	}
+	
+	public Boolean isClosed() {
+		return this.isClosed;
+	}
 
 	public Integer getAmountNeeded() {
 		return this.getFactor() * this.location.getPopulation();
@@ -81,10 +85,10 @@ public class Project {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
 
-	public Boolean isOpen() {
-		Date currentDate = new Date();
-		return currentDate.before(this.getEndDate()) || this.getAmountCollected() < this.getAmountMin();
-	}
+//	public Boolean isOpen() {
+//		Date currentDate = new Date();
+//		return currentDate.before(this.getEndDate()) || this.getAmountCollected() < this.getAmountMin();
+//	}
 
 	public Boolean isNextToEnd() {
 		Calendar currentDate = Calendar.getInstance();
@@ -113,8 +117,5 @@ public class Project {
 		pcs.firePropertyChange("theProperty", old, this.isClosed);
 	}
 	
-	public Boolean getIsClosed() {
-		return this.isClosed;
-	}
 
 }

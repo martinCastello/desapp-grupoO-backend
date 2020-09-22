@@ -25,11 +25,11 @@ public class SenderEmailTest {
 		
 		Donation aDonation = DonationBuilder.createDonation().withUser(userDonatorObs).withProject(newProject).withInvest(100.00f).build();		
 		
-		assertFalse(aDonation.getProject().getIsClosed());
+		assertFalse(aDonation.getProject().isClosed());
 		
 		admin.closeProject(aDonation.getProject());
 		
-		assertTrue(aDonation.getProject().getIsClosed());
+		assertTrue(aDonation.getProject().isClosed());
 
 	}
 

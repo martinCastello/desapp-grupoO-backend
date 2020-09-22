@@ -96,37 +96,12 @@ class ProjectTest {
 		assertEquals(150000000, newProject.getAmountMin());
 		assertEquals(0, newProject.getPercentageAmountcollected());
 	}
-
-	@Test
-	void givenANewProjectWithEndDateLessThanCurrentDateAndAmountCollectedEqualsAmountMinItsIsNotProjectOpen() throws Exception {
-		Date endDate = new Date(new Date().getTime() - 2000);
-		Project newProject = Mockito.mock(Project.class);
-		when(newProject.getEndDate()).thenReturn(endDate);
-		when(newProject.getAmountCollected()).thenReturn(1000F);
-		when(newProject.getAmountMin()).thenReturn(1000F);
-		
-		assertFalse(new Date().before(newProject.getEndDate()) 
-				|| newProject.getAmountCollected() < newProject.getAmountMin());
-	}
-	
-	@Test
-	void givenANewProjectWithAmountCollectedLessThanAmountMinItsIsProjectOpen() throws Exception {
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date endDate = formatter.parse("2020-04-08"); 
-		Project newProject = Mockito.mock(Project.class);
-		when(newProject.getEndDate()).thenReturn(endDate);
-		when(newProject.getAmountCollected()).thenReturn(1000F);
-		when(newProject.getAmountMin()).thenReturn(2000F);
-		
-		assertTrue(new Date().before(newProject.getEndDate()) 
-				|| newProject.getAmountCollected() < newProject.getAmountMin());
-	}
 	
 	@Test
 	void givenANewProjectWithCurrentDateLessThanEndDateItsIsProjectOpen() throws Exception {
 		Project newProject = ProjectBuilder.createProject().build();
 		
-		assertTrue(newProject.isOpen());
+		assertFalse(newProject.isClosed());
 	}
 
 	@Test
@@ -154,4 +129,28 @@ class ProjectTest {
 		assertEquals("Inconsistency in dates", exceptionStartDateGreaterThanEndDate.getMessage());
 	}
 
+	@Test
+	void givenANewProjectWithEndDateLessThanCurrentDateAndAmountCollectedEqualsAmountMinItsIsNotProjectOpen() throws Exception {
+		Date endDate = new Date(new Date().getTime() - 2000);
+		Project newProject = Mockito.mock(Project.class);
+		when(newProject.getEndDate()).thenReturn(endDate);
+		when(newProject.getAmountCollected()).thenReturn(1000F);
+		when(newProject.getAmountMin()).thenReturn(1000F);
+		
+		assertFalse(new Date().before(newProject.getEndDate()) 
+				|| newProject.getAmountCollected() < newProject.getAmountMin());
+	}
+	
+	@Test
+	void givenANewProjectWithAmountCollectedLessThanAmountMinItsIsProjectOpen() throws Exception {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		Date endDate = formatter.parse("2020-04-08"); 
+		Project newProject = Mockito.mock(Project.class);
+		when(newProject.getEndDate()).thenReturn(endDate);
+		when(newProject.getAmountCollected()).thenReturn(1000F);
+		when(newProject.getAmountMin()).thenReturn(2000F);
+		
+		assertTrue(new Date().before(newProject.getEndDate()) 
+				|| newProject.getAmountCollected() < newProject.getAmountMin());
+	}
 }
