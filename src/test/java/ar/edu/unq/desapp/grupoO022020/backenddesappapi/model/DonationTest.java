@@ -1,9 +1,7 @@
 package ar.edu.unq.desapp.grupoO022020.backenddesappapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.Calendar;
-import java.util.Date;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,6 +9,7 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.DonationBui
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.LocationBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.ProjectBuilder;
 import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder;
+import ar.edu.unq.desapp.grupoO022020.backenddesappapi.utils.DateUtils;
 
 public class DonationTest {
 	@Test
@@ -32,19 +31,8 @@ public class DonationTest {
 	@Test
 	void whenWeCreateANewDonationTheDateWeCanAssertThatItsSaveTheTodaysDate() throws Exception {
 		Donation aDonation = DonationBuilder.createDonation().build();
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Date today = calendar.getTime();
-		calendar.setTime(aDonation.getDate());
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		Date donationDate = calendar.getTime();
-		assertEquals(today, donationDate);
+
+		assertTrue(DateUtils.isToday(aDonation.getDate()));
 	}
 
 	@Test

@@ -15,7 +15,7 @@ import ar.edu.unq.desapp.grupoO022020.backenddesappapi.model.builder.UserBuilder
 public class SenderEmailTest {
 
 	@Test
-	void givenANewProjectIsClosedAndDonorUsersAreNotified() throws Exception {
+	void givenANewProjectItsIsClosedByAdminAndDonorUsersAreNotified() throws Exception {
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Date endDate = formatter.parse("2021-04-08");
