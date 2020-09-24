@@ -1,9 +1,19 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "location")
 public class Location {
+	@Id
 	private String name;
+	@Column
 	private String province;
+	@Column
 	private Integer population;
+	@Column
 	private Boolean isConnected;
 
 	public Location(String name, String province, Integer population, Boolean isConnected) {

@@ -1,14 +1,27 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 
 import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "donations")
 public class Donation {
+	@Id
 	private UserDonator user;
+	@Column
 	private Project project;
+	@Column
 	private Float investment;
 	private Date date;
-
+	
+	public Donation() {
+		super();
+	}
 	public Donation(UserDonator user, Project project, Float invest) {
+		super();
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());

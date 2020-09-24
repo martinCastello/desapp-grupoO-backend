@@ -1,9 +1,20 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+
+@Entity
+@Table(name = "users")
 abstract class User {
-	private String name; 
+	@Id
+	private String name;
+	@Column
     private String nickName; 
+	@Column
     private String mail;
+	@Column
     private String password;
     
     public User(String name, String mail, String nickName, String password) { 

@@ -1,20 +1,36 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
-
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Calendar;
 import java.util.Date;
 
+
+@Entity
+@Table(name = "projects")
+
+
 public class Project {
+	@Id
+	private String name;
+	@Column
+	private Date endDate;
+	@Column
+	private Date startDate;
+	@Column
+	private Location location;
 	private Integer factor;
 	private Float percentage;
-	private String name;
-	private Date endDate;
-	private Date startDate;
-	private Location location;
 	private Float amountCollected;
 	private Boolean isClosed;
 	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
+	
+	public Project() {
+		super();
+	}
 
 	public Project(String name, Date endDate, Date startDate, Location location) throws Exception {
 		this.factor = 1000; // de 0 a $100.000
