@@ -40,7 +40,7 @@ public class ArsatWebService {
 		while(data.hasNext()) {
 			JsonNode jsonLocation = data.next();
 			locations.add(new Location(
-					jsonLocation.get(indexName).textValue(),
+					jsonLocation.get(indexName).asText(),
 					jsonLocation.get(indexProvince).asText(),
 					jsonLocation.get(indexPopulation).asInt(),
 					isConnected));
