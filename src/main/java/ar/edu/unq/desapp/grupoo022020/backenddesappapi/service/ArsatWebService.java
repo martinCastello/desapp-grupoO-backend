@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -13,10 +15,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -29,34 +30,59 @@ public class ArsatWebService {
 	
 	protected static final HttpHeaders getHeaders() {
 		HttpHeaders headers = new HttpHeaders();
-		// headers.set("auth key", "GQ8mVEyKqSbH5RGOtYqYrB2ihmKRwtEjXhDpjupA");
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		return headers;
 	}
+	
+	private List<Location> getLocations(Iterator<JsonNode> data, int indexName, 
+			int indexProvince, int indexPopulation, Boolean isConnected){
+		List<Location> locations = new ArrayList<Location>();
+		while(data.hasNext()) {
+			JsonNode jsonLocation = data.next();
+			locations.add(new Location(
+					jsonLocation.get(indexName).textValue(),
+					jsonLocation.get(indexProvince).asText(),
+					jsonLocation.get(indexPopulation).asInt(),
+					isConnected));
+		}
+		return locations;
+	}
 
-	@Cacheable
-	public List<Location> getLocationList() throws URISyntaxException, JsonMappingException, JsonProcessingException{
+	@Cacheable("locationWithInternet")
+	public List<Location> getLocationWithInternetList() throws URISyntaxException, IOException{
 		RestTemplate restTemplate = new RestTemplate();
 	    URI uri = URI.create("http://prod.arsat.apim.junar.com/plan-federal-de-internet/v1/puntos/conectados.json/"
 	    		+ "?auth_key=GQ8mVEyKqSbH5RGOtYqYrB2ihmKRwtEjXhDpjupA");
 	    HttpEntity<String> request = new HttpEntity<String>("", getHeaders());
-		ResponseEntity<String> result = restTemplate.exchange(uri, 
-				HttpMethod.GET, request, String.class) ;
-		JsonNode root = objectMapper.readTree(result.getBody()).get("data");
-		Iterator<JsonNode> rootIter = root.iterator();
-		System.out.print("root *** " + root.get(0));
-		rootIter.next();
-		List<Location> locations = new ArrayList<Location>();
-		while(rootIter.hasNext()) {
-			JsonNode JsonAUsar = rootIter.next();
-			System.out.println("element*** " + JsonAUsar);
-			locations.add(new Location(
-					JsonAUsar.get(3).textValue(),
-					JsonAUsar.get(4).asText(),
-					JsonAUsar.get(6).asInt(),
-					JsonAUsar.get(8).asBoolean()));
-		}
-		System.out.println("data*** " + locations.get(0).getName() );
-		return locations;
+	    JsonNode root;
+	    try {
+	    	ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
+	    	root = objectMapper.readTree(result.getBody());
+	    }catch (HttpServerErrorException e) {
+	    	FileReader file = new FileReader("./src/main/resources/conectados.json");
+	    	// String text = new String(Files.readAllBytes(Paths.get("./src/main/resources/conectados.json")), StandardCharsets.UTF_8);
+	    	root = objectMapper.readTree(file); // (file, JsonNode.class);
+	    }
+	    Iterator<JsonNode> data = root.get("data").iterator();
+	    data.next();
+	    return this.getLocations(data, 3, 4, 6, Boolean.TRUE);
+	}
+	
+	@Cacheable("locationsInInternetPlanning")
+	public List<Location> getLocationsInInternetPlanningList() throws URISyntaxException, IOException{
+		RestTemplate restTemplate = new RestTemplate();
+	    URI uri = URI.create("http://prod.arsat.apim.junar.com/plan-federal-de-internet/v1/puntos/futuros.json/"
+	    		+ "?auth_key=GQ8mVEyKqSbH5RGOtYqYrB2ihmKRwtEjXhDpjupA");
+	    HttpEntity<String> request = new HttpEntity<String>("", getHeaders());
+	    JsonNode root;
+	    try {
+	    	ResponseEntity<String> result = restTemplate.exchange(uri, HttpMethod.GET, request, String.class);
+	    	root = objectMapper.readTree(result.getBody());
+	    }catch (HttpServerErrorException e) {
+	    	FileReader file = new FileReader("./src/main/resources/futuros.json");
+	    	root = objectMapper.readTree(file);
+	    }
+	    Iterator<JsonNode> data = root.get("data").iterator();
+		return this.getLocations(data, 2, 3, 5, Boolean.FALSE);
 	}
 }
