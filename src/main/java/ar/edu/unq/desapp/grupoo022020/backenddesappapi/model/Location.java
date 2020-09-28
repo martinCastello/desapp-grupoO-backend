@@ -1,13 +1,21 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "location")
-public class Location {
+public class Location implements Serializable{
+	
+	private static final long serialVersionUID = -8711371482297078834L;
+
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	@Column
 	private String name;
 	@Column
 	private String province;
@@ -15,8 +23,11 @@ public class Location {
 	private Integer population;
 	@Column
 	private Boolean isConnected;
-
+	
+	public Location() {}
+	
 	public Location(String name, String province, Integer population, Boolean isConnected) {
+		super();
 		this.setName(name);
 		this.setProvince(province);
 		this.setPopulation(population);

@@ -1,14 +1,16 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-
 
 @Entity
-@Table(name = "users")
 abstract class User {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column
 	private String name;
 	@Column
     private String nickName; 
@@ -17,6 +19,8 @@ abstract class User {
 	@Column
     private String password;
     
+	public User() {	}
+	
     public User(String name, String mail, String nickName, String password) { 
         this.name = name; 
         this.mail = mail;

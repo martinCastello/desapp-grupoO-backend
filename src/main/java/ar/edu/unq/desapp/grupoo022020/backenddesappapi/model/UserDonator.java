@@ -3,9 +3,14 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+import javax.persistence.Entity;
+
+@Entity
 public class UserDonator extends User implements PropertyChangeListener {
 	private int points;
 
+	public UserDonator() { }
+	
 	public UserDonator(String name, String mail, String userName, String password) {
 		super(name, mail, userName, password);
 		this.setPoints(0);
