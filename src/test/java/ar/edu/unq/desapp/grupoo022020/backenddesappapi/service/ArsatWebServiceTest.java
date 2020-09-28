@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.BackendDesappApiApplication;
+
 @SpringBootTest(classes = BackendDesappApiApplication.class)
 class ArsatWebServiceTest {
 	
