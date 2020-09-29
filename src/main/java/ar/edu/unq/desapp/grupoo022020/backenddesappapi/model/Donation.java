@@ -2,13 +2,37 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+
+@Entity
+@SequenceGenerator(name = "SEQ_DONATION", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_DONATION")
 public class Donation {
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DONATION")
+	private Integer id;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "userDonatorId", referencedColumnName = "id")
 	private UserDonator user;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "projectId", referencedColumnName = "id")
 	private Project project;
+	@Column
 	private Float investment;
 	private Date date;
-
+	
+	public Donation() { }
+	
 	public Donation(UserDonator user, Project project, Float invest) {
+		super();
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());

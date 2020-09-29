@@ -1,11 +1,20 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
 abstract class User {
-	private String name; 
+	@Column
+	private String name;
+	@Column
     private String nickName; 
+	@Column
     private String mail;
+	@Column
     private String password;
     
+	public User() {	}
+	
     public User(String name, String mail, String nickName, String password) { 
         this.name = name; 
         this.mail = mail;

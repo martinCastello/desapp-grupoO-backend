@@ -1,20 +1,52 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
-
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Project {
-	private Integer factor;
-	private Float percentage;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
+
+
+@Entity
+@SequenceGenerator(name = "SEQ_PROJECT", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_PROJECT")
+public class Project implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PROJECT")
+	private Integer id;
+	@Column
 	private String name;
+	@Column
 	private Date endDate;
+	@Column
 	private Date startDate;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "locationId", referencedColumnName = "id")
 	private Location location;
+	@Column
+	private Integer factor;
+	@Column
+	private Float percentage;
+	@Column
 	private Float amountCollected;
+	@Column
 	private Boolean isClosed;
+	@Transient
 	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
+	
+	public Project() {}
 
 	public Project(String name, Date endDate, Date startDate, Location location) throws Exception {
 		this.factor = 1000; // de 0 a $100.000
@@ -116,5 +148,5 @@ public class Project {
 		pcs.firePropertyChange("theProperty", old, this.isClosed);
 	}
 	
-
+	
 }
