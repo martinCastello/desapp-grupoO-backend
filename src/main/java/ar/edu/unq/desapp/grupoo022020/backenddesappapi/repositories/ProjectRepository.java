@@ -13,5 +13,7 @@ public interface ProjectRepository extends CrudRepository<Project, Integer> {
 	Optional<Project> findById(Integer id);
 	
 	List<Project> findAll();
+	
+	List<Project> findByIsClosed(Boolean isClosed);
 
 }
