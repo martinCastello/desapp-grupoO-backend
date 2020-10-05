@@ -53,9 +53,6 @@ dependencies {
 
 test {
 	useJUnitPlatform()
-	jacoco {
-    	excludes = ['**/repositories/*', '**/service/*', '**/utils/*', '**/ws/*'] // 
-  	}
 	finalizedBy jacocoTestReport
 }
 jacocoTestReport {
@@ -64,5 +61,14 @@ jacocoTestReport {
         xml.enabled true
         csv.enabled false
         html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/repositories/*', 
+	                    	'**/service/*', 
+	                    	'**/utils/*', 
+	                    	'**/ws/*'])
+        }))
     }
 }
