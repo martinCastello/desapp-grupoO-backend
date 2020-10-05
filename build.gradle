@@ -20,8 +20,8 @@ eclipseJdt {
 compileJava.options.encoding = 'utf-8'
 compileTestJava.options.encoding = 'utf-8'
 
-group = 'ar.edu.unq.desapp.grupo-O-022020'
-version = '0.0.1-SNAPSHOT'
+group = 'ar.edu.unq.desapp.grupo-o-022020'
+version = '0.0.3-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
@@ -47,17 +47,28 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	testImplementation 'org.springframework.security:spring-security-test'
+	compile 'org.springdoc:springdoc-openapi-ui:1.2.32'
+	compile 'io.springfox:springfox-swagger2:2.9.2'
 }
 
 test {
 	useJUnitPlatform()
-	finalizedBy jacocoTestReport // report is always generated after tests run
+	finalizedBy jacocoTestReport
 }
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
+    dependsOn test
     reports {
         xml.enabled true
         csv.enabled false
         html.enabled true
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ['**/repositories/*', 
+	                    	'**/service/*', 
+	                    	'**/utils/*', 
+	                    	'**/ws/*'])
+        }))
     }
 }

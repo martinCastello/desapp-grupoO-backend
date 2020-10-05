@@ -27,5 +27,9 @@ public class ProjectService {
 	public List<Project> findAll() {
 		return this.repository.findAll();
 	}
+	
+	public List<Project> findOpen() {
+		return this.repository.findByIsClosed(Boolean.FALSE);
+	}
 
 }
