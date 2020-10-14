@@ -13,21 +13,27 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/projects")
+@RequestMapping("/home/projects")
 public class ProjectController {
 
     @Autowired
-    private ProjectService projectService;
+    private ProjectService service;
 
     @GetMapping("")
     public List<Project> allProjects() {
-        List<Project> list = projectService.findAll();
+        List<Project> list = service.findAll();
         return list;
     }
     
     @GetMapping("/open")
     public List<Project> openProjects() {
-        List<Project> list = projectService.findOpen();
+        List<Project> list = service.findOpen();
+        return list;
+    }
+    
+    @GetMapping("/nextToEnd")
+    public List<Project> nextToEndProjects() {
+        List<Project> list = service.findNextToEnd();
         return list;
     }
    

@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -16,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
+
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
 
 
 @Entity
@@ -122,11 +123,12 @@ public class Project implements Serializable{
 //	}
 
 	public Boolean isNextToEnd() {
-		Calendar currentDate = Calendar.getInstance();
-		Calendar endDate = Calendar.getInstance();
-		endDate.setTime(this.getEndDate());
-		return currentDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR)
-				&& currentDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH);
+//		Calendar currentDate = Calendar.getInstance();
+//		Calendar endDate = Calendar.getInstance();
+//		endDate.setTime(this.getEndDate());
+//		return currentDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR)
+//				&& currentDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH);
+		return DateUtils.isSameMonth(new Date(), this.getEndDate());
 	}
 
 	public Integer getPopulation() {

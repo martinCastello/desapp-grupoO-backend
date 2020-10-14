@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ class ProjectServiceTest {
 	void givenProjectsInitServiceInMemorywhenIGetProjectId9ThenReturnLast() throws Exception {
 		// Last register of futuros.json
 		assertEquals(6829, service.findByID(9).getPopulation());
+	}
+	
+	@Test
+	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn9() {
+		assertTrue(service.findNextToEnd().size() == 9);
 	}
 
 }
