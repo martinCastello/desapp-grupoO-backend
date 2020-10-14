@@ -14,10 +14,10 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.repositories.LocationRepo
 public class LocationService {
 
 	@Autowired
-	LocationRepository repository;
+	private LocationRepository repository;
 	
 	@Autowired 
-	ProjectService projectService;
+	private ProjectService projectService;
 	
 	@Transactional
 	public Location save(Location model) {
