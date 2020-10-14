@@ -2,15 +2,16 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
-import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.repositories.DonationRepository;
 
 @Service
 public class DonationService {
+	@Autowired
 	private DonationRepository repository;
 
 	@Transactional
@@ -26,7 +27,7 @@ public class DonationService {
 		return this.repository.findAll();
 	}
 
-	public List<Donation> findByUser(UserDonator user) {
-		return this.repository.findByUser(user);
+	public List<Donation> findByUserId(Integer userId) {
+		return this.repository.findByUserId(userId);
 	}
 }

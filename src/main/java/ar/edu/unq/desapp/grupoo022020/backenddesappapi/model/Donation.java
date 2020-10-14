@@ -19,18 +19,19 @@ public class Donation {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_DONATION")
 	private Integer id;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "userDonatorId", referencedColumnName = "id")
 	private UserDonator user;
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
 	@JoinColumn(name = "projectId", referencedColumnName = "id")
 	private Project project;
 	@Column
 	private Float investment;
 	private Date date;
-	
-	public Donation() { }
-	
+
+	public Donation() {
+	}
+
 	public Donation(UserDonator user, Project project, Float invest) {
 		super();
 		this.setProject(project);

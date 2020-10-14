@@ -8,7 +8,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
-import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 
 @Configuration
 @Repository
@@ -18,6 +17,6 @@ public interface DonationRepository extends CrudRepository<Donation, Integer> {
 
 	List<Donation> findAll();
 
-	List<Donation> findByUser(UserDonator user);
+	List<Donation> findByUserId(Integer userId);
 
 }

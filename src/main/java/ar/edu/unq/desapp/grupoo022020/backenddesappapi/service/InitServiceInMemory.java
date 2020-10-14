@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.AdminUser;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Location;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
@@ -29,6 +30,9 @@ public class InitServiceInMemory {
 
 	@Autowired
 	private UserService userDonatorService;
+
+	@Autowired
+	private DonationService donationService;
 
 	@Autowired
 	private UserAdminService userAdminService;
@@ -51,19 +55,35 @@ public class InitServiceInMemory {
 		for (Location location : arsatWebService.getLocationsInInternetPlanningList()) {
 			Project project = new Project("test", endDate, startDate, location);
 			projectService.save(project);
+
 		}
-		
+
 		UserDonator mariel = new UserDonator("mariel", "mariel@gmail.com", "marielNick", "pass");
-		userDonatorService.save(mariel);
 
 		UserDonator carina = new UserDonator("carina", "carina@gmail.com", "carinaNick", "pass");
-		userDonatorService.save(carina);
 
 		UserDonator juana = new UserDonator("juana", "juana@gmail.com", "juanaNick", "pass");
-		userDonatorService.save(juana);
 
 		AdminUser renata = new AdminUser("carina", "carina@gmail.com", "carinaNick", "pass");
+
+		userDonatorService.save(mariel);
+		userDonatorService.save(carina);
+		userDonatorService.save(juana);
 		userAdminService.save(renata);
+
+		var projects = projectService.findAll();
+		var userMariel = userDonatorService.findAll().get(0);
+		var userJuana = userDonatorService.findAll().get(2);
+
+		if (projects.size() > 0) {
+			Project aProject = projects.get(0);
+
+			Donation firstDonation = new Donation(userMariel, aProject, 100.00F);
+			donationService.save(firstDonation);
+			Donation secondDonation = new Donation(userJuana, aProject, 199.00F);
+			donationService.save(secondDonation);
+
+		}
 
 	}
 
