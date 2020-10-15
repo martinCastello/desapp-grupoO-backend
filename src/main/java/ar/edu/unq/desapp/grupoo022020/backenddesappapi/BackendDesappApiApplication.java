@@ -6,9 +6,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-@EnableSwagger2
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//
+//@EnableSwagger2
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class BackendDesappApiApplication extends SpringBootServletInitializer {
 

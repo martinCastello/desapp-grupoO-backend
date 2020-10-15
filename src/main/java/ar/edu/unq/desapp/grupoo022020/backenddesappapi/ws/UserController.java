@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -49,7 +50,7 @@ public class UserController {
 		var alreadyExist = userService.exist(user.getNickName(), user.getMail());
 
 		if (alreadyExist) {
-			return new ResponseEntity<UserDonator>(user, HttpStatus.FOUND);
+			return ResponseEntity.status(HttpStatus.FOUND).build();
 		} else {
 			userService.save(user);
 			return new ResponseEntity<UserDonator>(user, HttpStatus.OK);
@@ -66,7 +67,13 @@ public class UserController {
 			return new ResponseEntity<String>("User name and password cant be empty", HttpStatus.NO_CONTENT);
 		}
 
-		UserDonator user = userService.findByNickName(nickName);
+		Optional<UserDonator> userRes = userService.findByNickName(nickName);
+
+		if (userRes.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		var user = userRes.get();
 
 		if (password.equals(user.getPassword())) {
 			return new ResponseEntity<String>("Login", HttpStatus.OK);

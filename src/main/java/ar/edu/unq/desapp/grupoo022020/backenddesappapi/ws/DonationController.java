@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.DonationService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
 
 @RestController
 @EnableAutoConfiguration
@@ -25,6 +28,8 @@ public class DonationController {
 
 	@Autowired
 	private DonationService donationService;
+	@Autowired
+	private UserService userService;
 
 	@GetMapping("")
 	public List<Donation> allDonations() {
@@ -46,7 +51,15 @@ public class DonationController {
 
 	@GetMapping("/user")
 	public ResponseEntity<List<Donation>> getUserDonation(@RequestParam String userId) {
+
 		Integer userIdInt = Integer.parseInt(userId);
+
+		Optional<UserDonator> userRes = userService.findByID(userIdInt);
+
+		if (userRes.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
 		List<Donation> donations = donationService.findByUserId(userIdInt);
 
 		return new ResponseEntity<List<Donation>>(donations, HttpStatus.OK);

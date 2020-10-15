@@ -41,8 +41,13 @@ public class UserService {
 		return existWithMail || existWithUserName;
 	}
 
-	public UserDonator findByNickName(String userName) {
-		return this.repository.findByNickName(userName);
+	public Optional<UserDonator> findByNickName(String userName) {
+		try {
+			return this.repository.findByNickName(userName);
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+
 	}
 
 }
