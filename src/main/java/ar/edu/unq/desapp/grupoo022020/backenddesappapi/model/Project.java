@@ -150,5 +150,9 @@ public class Project implements Serializable{
 		pcs.firePropertyChange("theProperty", old, this.isClosed);
 	}
 	
+	@Override
+    public String toString() {
+        return "Project{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+    }
 	
 }

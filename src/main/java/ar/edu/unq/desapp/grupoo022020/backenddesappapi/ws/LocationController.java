@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,11 +16,17 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
 @RequestMapping("/home/locations")
 public class LocationController {
 
+	@Autowired
 	private LocationService service;
 	
 	@GetMapping("")
     public List<Location> allLocations() {
-        List<Location> list = service.findAll();
+        List<Location> list = this.service.findAll();
         return list;
     }
+	
+	@GetMapping("/Top10WithMoreTimeWithoutDonations")
+	public List<Location> findTop10WithMoreTimeWithoutDonations(){
+		return this.service.findTop10WithMoreTimeWithoutDonations();
+	}
 }

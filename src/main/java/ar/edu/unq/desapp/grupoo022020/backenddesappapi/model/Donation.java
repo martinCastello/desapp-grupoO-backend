@@ -40,6 +40,7 @@ public class Donation {
 		this.setUser(user);
 		PointCalculatorContext.givePointsToUser(this);
 		project.addObserver(user);
+		project.addAmount(invest);
 	}
 
 	public Project getProject() {
