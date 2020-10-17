@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.DonationService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.DonationViewModel;
 
 @RestController
 @EnableAutoConfiguration
@@ -30,6 +33,8 @@ public class DonationController {
 	private DonationService donationService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ProjectService projectService;
 
 	@GetMapping("")
 	public List<Donation> allDonations() {
@@ -39,12 +44,28 @@ public class DonationController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<Donation> getById(@PathVariable String id) {
-		Donation donation = donationService.findByID(Integer.parseInt(id));
-		return new ResponseEntity<Donation>(donation, HttpStatus.OK);
+		Optional<Donation> donation = donationService.findByID(Integer.parseInt(id));
+
+		if (donation.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		return new ResponseEntity<Donation>(donation.get(), HttpStatus.OK);
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Donation> singUp(@RequestBody Donation newDonation) {
+	public ResponseEntity<Donation> createDonation(@RequestBody DonationViewModel newDonationVM) {
+
+		Optional<UserDonator> userDonator = userService.findByID(newDonationVM.getUserId());
+
+		Project project = projectService.findByID(newDonationVM.getProjectId());
+
+		if (userDonator.isEmpty() || project == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment());
+
 		Donation donation = donationService.save(newDonation);
 		return new ResponseEntity<Donation>(donation, HttpStatus.OK);
 	}
@@ -64,4 +85,5 @@ public class DonationController {
 
 		return new ResponseEntity<List<Donation>>(donations, HttpStatus.OK);
 	}
+
 }

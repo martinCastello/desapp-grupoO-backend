@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @SequenceGenerator(name = "SEQ_DONATION", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_DONATION")
 public class Donation {
@@ -27,6 +29,7 @@ public class Donation {
 	private Project project;
 	@Column
 	private Float investment;
+	@Column
 	private Date date;
 
 	public Donation() {
@@ -58,6 +61,7 @@ public class Donation {
 		return this.user;
 	}
 
+	@JsonIgnore
 	public int getUserPoints() {
 		return this.getUser().getPoints();
 	}
@@ -78,14 +82,17 @@ public class Donation {
 		this.user = user;
 	}
 
-	public String getUserNameForDonator() {
+	@JsonIgnore
+	public String getUserNameOfDonator() {
 		return this.getUser().getNickName();
 	}
 
+	@JsonIgnore
 	public Integer getPoblationOfLocation() {
 		return this.getProject().getPopulation();
 	}
 
+	@JsonIgnore
 	public Float getProjectCollectedMoney() {
 		return this.getProject().getAmountCollected();
 	}

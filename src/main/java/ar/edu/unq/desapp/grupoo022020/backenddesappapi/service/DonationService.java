@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,13 @@ public class DonationService {
 		return this.repository.save(model);
 	}
 
-	public Donation findByID(Integer id) {
-		return this.repository.findById(id).get();
+	public Optional<Donation> findByID(Integer id) {
+		try {
+			return this.repository.findById(id);
+		} catch (Exception e) {
+			return Optional.empty();
+		}
+
 	}
 
 	public List<Donation> findAll() {
