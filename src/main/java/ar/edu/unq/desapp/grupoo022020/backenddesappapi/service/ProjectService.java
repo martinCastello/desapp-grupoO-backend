@@ -4,23 +4,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.repositories.ProjectRepository;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.impl.CommonServiceImpl;
 
 @Service
-public class ProjectService {
-
-	@Autowired
-	private ProjectRepository repository;
-	
-	@Transactional
-	public Project save(Project model) {
-		return this.repository.save(model);
-	}
+public class ProjectService extends CommonServiceImpl<Project, ProjectRepository>{
 	
 	public Project findByID(Integer id) {
 		return this.repository.findById(id).get();

@@ -1,8 +1,5 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,10 +13,8 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/home/projects")
-public class ProjectController {
+public class ProjectController extends CommonController<Project, ProjectService>{
 	
-	@Autowired
-    private ProjectService service;
 
     @LogExecutionTime
     @GetMapping
@@ -28,15 +23,13 @@ public class ProjectController {
     }
     
     @GetMapping("/open")
-    public List<Project> openProjects() {
-        List<Project> list = service.findOpen();
-        return list;
+    public ResponseEntity<?> openProjects() {
+        return ResponseEntity.ok(service.findOpen());
     }
     
     @GetMapping("/nextToEnd")
-    public List<Project> nextToEndProjects() {
-        List<Project> list = service.findNextToEnd();
-        return list;
+    public ResponseEntity<?> nextToEndProjects() {
+        return ResponseEntity.ok(service.findNextToEnd());
     }
    
 }
