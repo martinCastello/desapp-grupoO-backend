@@ -56,7 +56,9 @@ public class DonationController {
 	@PostMapping("/create")
 	public ResponseEntity<Donation> createDonation(@RequestBody DonationViewModel newDonationVM) {
 
-		Optional<UserDonator> userDonator = userService.findByID(newDonationVM.getUserId());
+		Integer userId = newDonationVM.getUserId();
+
+		Optional<UserDonator> userDonator = userService.findByID(userId);
 
 		Project project = projectService.findByID(newDonationVM.getProjectId());
 
@@ -64,9 +66,17 @@ public class DonationController {
 			return ResponseEntity.notFound().build();
 		}
 
-		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment());
+		List<Donation> donationsOfUser = donationService.getDonationsInCurrentMonth(userDonator.get());
+		Integer donationInCurrentMonth = donationsOfUser.size();
+
+		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment(),
+				donationInCurrentMonth);
 
 		Donation donation = donationService.save(newDonation);
+
+		userService.save(userDonator.get());
+		projectService.save(project);
+
 		return new ResponseEntity<Donation>(donation, HttpStatus.OK);
 	}
 

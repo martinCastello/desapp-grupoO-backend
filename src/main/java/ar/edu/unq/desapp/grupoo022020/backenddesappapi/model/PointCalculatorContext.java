@@ -4,7 +4,7 @@ final class PointCalculatorContext {
 
 	private static IPointSystemState getPointSystem(Donation donation) {
 		IPointSystemState system = null;
-		if (donation.getUserNameOfDonator().contains("month")) {
+		if (donation.getDonationInMonth() > 0) {
 			return new InvestInMoreThanOneProjectInCalendarMonth();
 		}
 		if (donation.getInvestment() >= 1000.00F) {

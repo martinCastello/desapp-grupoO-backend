@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Donation;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.repositories.DonationRepository;
 
 @Service
@@ -35,5 +36,9 @@ public class DonationService {
 
 	public List<Donation> findByUserId(Integer userId) {
 		return this.repository.findByUserId(userId);
+	}
+
+	public List<Donation> getDonationsInCurrentMonth(UserDonator user) {
+		return this.repository.getDonationsMadeByUserInCurrentMonth(user);
 	}
 }

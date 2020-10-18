@@ -32,15 +32,19 @@ public class Donation {
 	@Column
 	private Date date;
 
+	@JsonIgnore
+	private Integer donationsMadeInCurrentMonth;
+
 	public Donation() {
 	}
 
-	public Donation(UserDonator user, Project project, Float invest) {
+	public Donation(UserDonator user, Project project, Float invest, Integer donationInMonth) {
 		super();
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());
 		this.setUser(user);
+		this.donationsMadeInCurrentMonth = donationInMonth;
 		PointCalculatorContext.givePointsToUser(this);
 		project.addObserver(user);
 	}
@@ -95,5 +99,9 @@ public class Donation {
 	@JsonIgnore
 	public Float getProjectCollectedMoney() {
 		return this.getProject().getAmountCollected();
+	}
+
+	public Integer getDonationInMonth() {
+		return this.donationsMadeInCurrentMonth;
 	}
 }

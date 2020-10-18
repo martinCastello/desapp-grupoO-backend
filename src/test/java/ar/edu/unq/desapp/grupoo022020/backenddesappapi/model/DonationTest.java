@@ -60,12 +60,10 @@ public class DonationTest {
 	@Test
 	void givenADOnationOfOneHundredOfPesosFromAnUserThatAlreadyMakesOneInThisCalendarMonthWeKnowThatThePointForThatsUserItsGonnaBeFiveHundreadMoreThanNow()
 			throws Exception {
-		String userName = "month";
-		// Simulamos que ya realizo una donacion un dia del presente mes y hoy realiza
-		// otra
-		UserDonator userDonator = UserBuilder.createUser().withNickName(userName).buildDonator();
+		UserDonator userDonator = UserBuilder.createUser().buildDonator();
 
-		Donation aDonation = DonationBuilder.createDonation().withUser(userDonator).withInvest(100.00f).build();
+		Donation aDonation = DonationBuilder.createDonation().withUser(userDonator).withInvest(100.00f)
+				.withDonationInCurrentMonth(2).build();
 
 		assertEquals(500, aDonation.getUserPoints());
 	}

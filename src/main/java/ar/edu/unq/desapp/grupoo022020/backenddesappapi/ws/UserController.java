@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
@@ -83,4 +84,15 @@ public class UserController {
 
 	}
 
+	@GetMapping("/points")
+	public ResponseEntity<Integer> getUserPoints(@RequestParam String userId) {
+		var user = userService.findByID(Integer.parseInt(userId));
+
+		if (user.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		return ResponseEntity.ok().body(user.get().getPoints());
+
+	}
 }
