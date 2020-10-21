@@ -13,7 +13,6 @@ public class CommonServiceImpl<E, R extends CrudRepository<E, Integer>> implemen
 	@Autowired
 	protected R repository;
 	
-	@Override
 	@Transactional
 	public E save(@Valid E entity) {
 		return this.repository.save(entity);
