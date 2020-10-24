@@ -1,7 +1,5 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel;
 
-import java.util.Date;
-
 public class DonationViewModel {
 	private Integer userId;
 
@@ -9,7 +7,7 @@ public class DonationViewModel {
 
 	private Float investment;
 
-	public DonationViewModel(int userId, int projectId, Float invest, Date date) {
+	public DonationViewModel(int userId, int projectId, Float invest) {
 		this.setUserId(userId);
 		this.setProjectId(projectId);
 		this.setInvestment(invest);
