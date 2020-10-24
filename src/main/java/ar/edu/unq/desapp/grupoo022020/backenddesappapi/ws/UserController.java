@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.AdminUser;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserAdminService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
 
 @RestController
@@ -26,6 +28,8 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private UserAdminService adminService;
 
 	@GetMapping("")
 	public List<UserDonator> allUsers() {
@@ -48,7 +52,8 @@ public class UserController {
 	@PostMapping("/signUp")
 	public ResponseEntity<UserDonator> singUp(@RequestBody UserDonator user) {
 
-		var alreadyExist = userService.exist(user.getNickName(), user.getMail());
+		var alreadyExist = userService.exist(user.getNickName(), user.getMail())
+				|| adminService.exist(user.getNickName(), user.getMail());
 
 		if (alreadyExist) {
 			return ResponseEntity.status(HttpStatus.FOUND).build();
@@ -69,19 +74,29 @@ public class UserController {
 		}
 
 		Optional<UserDonator> userRes = userService.findByNickName(nickName);
+		Optional<AdminUser> adminRes = adminService.findByNickName(nickName);
 
-		if (userRes.isEmpty()) {
+		if (userRes.isEmpty() && adminRes.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
+		return this.loginFor(userRes, adminRes, password);
 
-		var user = userRes.get();
+	}
 
-		if (password.equals(user.getPassword())) {
+	private ResponseEntity<String> loginFor(Optional<UserDonator> donator, Optional<AdminUser> admin, String password) {
+		if (!donator.isEmpty()) {
+			return this.validatePassword(donator.get().getPassword(), password);
+		} else {
+			return this.validatePassword(admin.get().getPassword(), password);
+		}
+	}
+
+	private ResponseEntity<String> validatePassword(String userPassword, String password) {
+		if (password.equals(userPassword)) {
 			return new ResponseEntity<String>("Login", HttpStatus.OK);
 		} else {
 			return new ResponseEntity<String>("Acces deneid", HttpStatus.OK);
 		}
-
 	}
 
 	@GetMapping("/points")

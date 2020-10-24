@@ -9,7 +9,6 @@ public class DonationBuilder {
 	private UserDonator user = UserBuilder.createUser().buildDonator();
 	private Project project;
 	private Float invest = 0F;
-	private Integer donations = 0;
 
 	public static DonationBuilder createDonation() {
 		return new DonationBuilder();
@@ -18,7 +17,7 @@ public class DonationBuilder {
 	public Donation build() throws Exception {
 		if (this.project == null)
 			this.project = ProjectBuilder.createProject().build();
-		return new Donation(this.user, this.project, this.invest, this.donations);
+		return new Donation(this.user, this.project, this.invest);
 	}
 
 	public DonationBuilder withUser(UserDonator user) {
@@ -36,8 +35,4 @@ public class DonationBuilder {
 		return this;
 	}
 
-	public DonationBuilder withDonationInCurrentMonth(Integer donations) {
-		this.donations = donations;
-		return this;
-	}
 }
