@@ -78,9 +78,9 @@ public class InitServiceInMemory {
 		if (projects.size() > 0) {
 			Project aProject = projects.get(0);
 
-			Donation firstDonation = new Donation(userMariel, aProject, 100.00F, 1);
+			Donation firstDonation = new Donation(userMariel, aProject, 100.00F);
 			donationService.save(firstDonation);
-			Donation secondDonation = new Donation(userJuana, aProject, 199.00F, 0);
+			Donation secondDonation = new Donation(userJuana, aProject, 199.00F);
 			donationService.save(secondDonation);
 
 			userDonatorService.save(userMariel);

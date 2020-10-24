@@ -66,11 +66,7 @@ public class DonationController {
 			return ResponseEntity.notFound().build();
 		}
 
-		List<Donation> donationsOfUser = donationService.getDonationsInCurrentMonth(userDonator.get());
-		Integer donationInCurrentMonth = donationsOfUser.size();
-
-		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment(),
-				donationInCurrentMonth);
+		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment());
 
 		Donation donation = donationService.save(newDonation);
 

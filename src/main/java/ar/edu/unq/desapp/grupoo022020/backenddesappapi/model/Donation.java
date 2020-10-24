@@ -38,14 +38,12 @@ public class Donation {
 	public Donation() {
 	}
 
-	public Donation(UserDonator user, Project project, Float invest, Integer donationInMonth) {
+	public Donation(UserDonator user, Project project, Float invest) {
 		super();
 		this.setProject(project);
 		this.setInvestment(invest);
 		this.setDate(new Date());
 		this.setUser(user);
-		this.donationsMadeInCurrentMonth = donationInMonth;
-		PointCalculatorContext.givePointsToUser(this);
 		project.addObserver(user);
 	}
 

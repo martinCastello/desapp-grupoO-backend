@@ -17,8 +17,10 @@ public class DonationService {
 	private DonationRepository repository;
 
 	@Transactional
-	public Donation save(Donation model) {
-		return this.repository.save(model);
+	public Donation save(Donation donation) {
+		var donationsMadeInCurrentMonth = this.getDonationsInCurrentMonth(donation.getUser());
+		PointCalculatorContext.givePointsToUser(donation, donationsMadeInCurrentMonth.size());
+		return this.repository.save(donation);
 	}
 
 	public Optional<Donation> findByID(Integer id) {
