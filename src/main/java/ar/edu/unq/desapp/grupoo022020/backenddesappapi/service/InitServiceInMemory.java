@@ -83,6 +83,10 @@ public class InitServiceInMemory {
 			Donation secondDonation = new Donation(userJuana, aProject, 199.00F);
 			donationService.save(secondDonation);
 
+			userDonatorService.save(userMariel);
+			userDonatorService.save(userJuana);
+			projectService.save(aProject);
+
 		}
 
 	}

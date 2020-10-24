@@ -17,4 +17,8 @@ public interface AdminUserRepository extends CrudRepository<AdminUser, Integer> 
 
 	List<AdminUser> findAll();
 
+	Optional<AdminUser> findByNickName(String nickName);
+
+	Object findByMail(String mail);
+
 }
