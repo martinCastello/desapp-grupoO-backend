@@ -47,4 +47,31 @@ public class DateUtils {
     public static boolean isToday(Date date) {
         return isSameDay(date, Calendar.getInstance().getTime());
     }
+    
+    public static boolean isSameMonth(Date date1, Date date2) {
+        if (date1 == null || date2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(date1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(date2);
+        return isSameMonth(cal1, cal2);
+    }
+    
+    /**
+     * <p>Checks if two calendars represent the same day ignoring time.</p>
+     * @param cal1  the first calendar, not altered, not null
+     * @param cal2  the second calendar, not altered, not null
+     * @return true if they represent the same day
+     * @throws IllegalArgumentException if either calendar is <code>null</code>
+     */
+    public static boolean isSameMonth(Calendar cal1, Calendar cal2) {
+        if (cal1 == null || cal2 == null) {
+            throw new IllegalArgumentException("The dates must not be null");
+        }
+        return (cal1.get(Calendar.ERA) == cal2.get(Calendar.ERA) &&
+                cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH));
+    }
 }

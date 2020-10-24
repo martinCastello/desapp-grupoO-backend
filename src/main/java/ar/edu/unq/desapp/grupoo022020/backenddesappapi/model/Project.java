@@ -2,7 +2,6 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -15,7 +14,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.lang.NonNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
 
 
 @Entity
@@ -26,23 +34,31 @@ public class Project implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PROJECT")
 	private Integer id;
-	@Column
+	
+	@NotEmpty
 	private String name;
+	
 	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date endDate;
+	
 	@Column
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date startDate;
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "locationId", referencedColumnName = "id")
+	@NonNull
 	private Location location;
-	@Column
+	
 	private Integer factor;
-	@Column
+	
 	private Float percentage;
-	@Column
+	
 	private Float amountCollected;
-	@Column
+	
 	private Boolean isClosed;
+	
 	@Transient
 	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
 	
@@ -105,14 +121,17 @@ public class Project implements Serializable{
 		return this.isClosed;
 	}
 
+	@JsonIgnore
 	public Integer getAmountNeeded() {
 		return this.getFactor() * this.location.getPopulation();
 	}
 
+	@JsonIgnore
 	public Float getAmountMin() {
 		return this.getAmountNeeded() * this.getPercentage();
 	}
 
+	@JsonIgnore
 	public Float getPercentageAmountcollected() {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
@@ -121,14 +140,17 @@ public class Project implements Serializable{
 //		return this.getEndDate().before(new Date()) && this.getAmountCollected() > this.getAmountMin();
 //	}
 
+	@JsonIgnore
 	public Boolean isNextToEnd() {
-		Calendar currentDate = Calendar.getInstance();
-		Calendar endDate = Calendar.getInstance();
-		endDate.setTime(this.getEndDate());
-		return currentDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR)
-				&& currentDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH);
+//		Calendar currentDate = Calendar.getInstance();
+//		Calendar endDate = Calendar.getInstance();
+//		endDate.setTime(this.getEndDate());
+//		return currentDate.get(Calendar.YEAR) == endDate.get(Calendar.YEAR)
+//				&& currentDate.get(Calendar.MONTH) == endDate.get(Calendar.MONTH);
+		return DateUtils.isSameMonth(new Date(), this.getEndDate());
 	}
 
+	@JsonIgnore
 	public Integer getPopulation() {
 		return this.location.getPopulation();
 	}
@@ -148,5 +170,9 @@ public class Project implements Serializable{
 		pcs.firePropertyChange("theProperty", old, this.isClosed);
 	}
 	
+	@Override
+    public String toString() {
+        return "Project{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+    }
 	
 }

@@ -16,5 +16,7 @@ public interface LocationRepository extends CrudRepository<Location, Integer> {
 	Optional<Location> findById(Integer id);
 
 	List<Location> findAll();
+	
+	
 
 }
