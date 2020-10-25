@@ -21,6 +21,7 @@ import javax.validation.constraints.NotEmpty;
 
 import org.springframework.lang.NonNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
@@ -40,11 +41,13 @@ public class Project implements Serializable{
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date endDate;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date startDate;
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date startDate;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	private Date endDate;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "locationId", referencedColumnName = "id")

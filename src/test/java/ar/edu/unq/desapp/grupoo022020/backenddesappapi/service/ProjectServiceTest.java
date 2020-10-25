@@ -29,8 +29,8 @@ class ProjectServiceTest {
 	}
 	
 	@Test
-	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn9() {
-		assertTrue(service.findNextToEnd().size() == 9);
+	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn8() {
+		assertTrue(service.findNextToEnd().size() == 8);
 	}
 
 }

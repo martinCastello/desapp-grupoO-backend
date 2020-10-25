@@ -51,11 +51,14 @@ public class InitServiceInMemory {
 	private void fireInitialData() throws Exception {
 		Date startDate = new Date();
 		Date endDate = new Date(startDate.getTime() + 1000);
-
+		int counter = 0;
+		
 		for (Location location : arsatWebService.getLocationsInInternetPlanningList()) {
 			Project project = new Project("Proyecto " + location.getName(), endDate, startDate, location);
+			if(counter == 1)
+				project.close();
 			projectService.save(project);
-
+			counter++;
 		}
 
 		UserDonator mariel = new UserDonator("mariel", "mariel@gmail.com", "marielNick", "pass");
