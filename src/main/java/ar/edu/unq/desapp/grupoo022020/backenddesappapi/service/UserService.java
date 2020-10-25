@@ -50,4 +50,8 @@ public class UserService {
 
 	}
 
+	public List<UserDonator> getRankingDonators() {
+		return this.repository.getTopTeenDonators();
+	}
+
 }

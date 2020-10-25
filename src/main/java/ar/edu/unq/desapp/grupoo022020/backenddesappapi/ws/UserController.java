@@ -23,7 +23,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/users")
+@RequestMapping("/home/users")
 public class UserController {
 
 	@Autowired
@@ -109,5 +109,11 @@ public class UserController {
 
 		return ResponseEntity.ok().body(user.get().getPoints());
 
+	}
+
+	@GetMapping("/rankingDonators")
+	public List<UserDonator> rankingDonators() {
+		List<UserDonator> list = userService.getRankingDonators();
+		return list;
 	}
 }
