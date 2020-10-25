@@ -113,8 +113,8 @@ public class UserController {
 	}
 
 	@GetMapping("/rankingDonators")
-	public List<UserDonator> rankingDonators() {
+	public ResponseEntity<List<UserDonator>> rankingDonators() {
 		List<UserDonator> list = userService.getRankingDonators();
-		return list;
+		return ResponseEntity.ok().body(list);
 	}
 }
