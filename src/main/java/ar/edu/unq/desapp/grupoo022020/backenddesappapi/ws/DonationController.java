@@ -25,7 +25,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.DonationViewMod
 
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/api/donations")
+@RequestMapping("/home/donations")
 
 public class DonationController {
 
