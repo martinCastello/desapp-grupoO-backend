@@ -64,13 +64,13 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> login(@RequestBody Map<String, String> credentials) {
+	public ResponseEntity<Boolean> login(@RequestBody Map<String, String> credentials) {
 
 		var nickName = credentials.get("nickName");
 		var password = credentials.get("password");
 
 		if (nickName.isEmpty() || password.isEmpty()) {
-			return new ResponseEntity<String>("User name and password cant be empty", HttpStatus.NO_CONTENT);
+			return new ResponseEntity<Boolean>(false, HttpStatus.NO_CONTENT);
 		}
 
 		Optional<UserDonator> userRes = userService.findByNickName(nickName);
@@ -83,19 +83,20 @@ public class UserController {
 
 	}
 
-	private ResponseEntity<String> loginFor(Optional<UserDonator> donator, Optional<AdminUser> admin, String password) {
+	private ResponseEntity<Boolean> loginFor(Optional<UserDonator> donator, Optional<AdminUser> admin,
+			String password) {
 		if (!donator.isEmpty()) {
-			return this.validatePassword(donator.get().getPassword(), password);
+			return this.validatePassword(donator.get().getPassword(), password, true);
 		} else {
-			return this.validatePassword(admin.get().getPassword(), password);
+			return this.validatePassword(admin.get().getPassword(), password, false);
 		}
 	}
 
-	private ResponseEntity<String> validatePassword(String userPassword, String password) {
+	private ResponseEntity<Boolean> validatePassword(String userPassword, String password, Boolean isDonator) {
 		if (password.equals(userPassword)) {
-			return new ResponseEntity<String>("Login", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(isDonator, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("Acces deneid", HttpStatus.OK);
+			return new ResponseEntity<Boolean>(isDonator, HttpStatus.BAD_GATEWAY);
 		}
 	}
 
