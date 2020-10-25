@@ -32,9 +32,6 @@ public class Donation {
 	@Column
 	private Date date;
 
-	@JsonIgnore
-	private Integer donationsMadeInCurrentMonth;
-
 	public Donation() {
 	}
 
@@ -100,7 +97,4 @@ public class Donation {
 		return this.getProject().getAmountCollected();
 	}
 
-	public Integer getDonationInMonth() {
-		return this.donationsMadeInCurrentMonth;
-	}
 }

@@ -16,14 +16,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
+	//Heroku
     http.requiresChannel()
       .requestMatchers(r -> r.getHeader("X-Forwarded-Proto") != null)
       .requiresSecure();
+    
+    //h2-console
+    http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll();
+    http.csrf().disable();
+    http.headers().frameOptions().disable();
   }
   
   @Override
   public void addCorsMappings(CorsRegistry registry) {
-      registry.addMapping("/**");
+      //Permission for frontend
+	  registry.addMapping("/**");
   }
 }
 

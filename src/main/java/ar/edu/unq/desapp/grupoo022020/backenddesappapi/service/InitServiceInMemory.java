@@ -53,7 +53,7 @@ public class InitServiceInMemory {
 		Date endDate = new Date(startDate.getTime() + 1000);
 
 		for (Location location : arsatWebService.getLocationsInInternetPlanningList()) {
-			Project project = new Project("test", endDate, startDate, location);
+			Project project = new Project("Proyecto " + location.getName(), endDate, startDate, location);
 			projectService.save(project);
 
 		}
