@@ -1,5 +1,4 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.Date;
@@ -64,6 +63,8 @@ public class Project implements Serializable{
 	
 	@Transient
 	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
+	
+	private Integer totalOfParticipants;
 	
 	public Project() {}
 
@@ -134,7 +135,6 @@ public class Project implements Serializable{
 		return this.getAmountNeeded() * this.getPercentage();
 	}
 
-	@JsonIgnore
 	public Float getPercentageAmountcollected() {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
@@ -163,8 +163,9 @@ public class Project implements Serializable{
 	}
 
 
-	public void addObserver(PropertyChangeListener l) {
+	public void addObserver(UserDonator l) {
 		pcs.addPropertyChangeListener("theProperty", l);
+		this.setTotalOfParticipants(pcs.getPropertyChangeListeners().length);
 	}
 
 	public void close() {
@@ -177,5 +178,13 @@ public class Project implements Serializable{
     public String toString() {
         return "Project{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
     }
+
+	public Integer getTotalOfParticipants() {
+		return this.totalOfParticipants;
+	}
+
+	public void setTotalOfParticipants(Integer totalOfParticipants) {
+		this.totalOfParticipants = totalOfParticipants;
+	}
 	
 }
