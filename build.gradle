@@ -69,9 +69,12 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it,
                     exclude: ['**/aspects/*',
+                    		'**/config/*',
+                    		'**/jobs/*',
                     		'**/repositories/*', 
 	                    	'**/service/*', 
-	                    	'**/utils/*', 
+	                    	'**/utils/*',
+	                    	'**/viewmodel/*', 
 	                    	'**/ws/*'])
         }))
     }
