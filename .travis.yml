@@ -1,5 +1,8 @@
 language: java
 
+env:
+  - JASYPT_ENCRYPTOR_PASSWORD=secret
+
 before_install:
 - sudo apt-get install jq
 - wget -O ~/codacy-coverage-reporter-assembly-latest.jar https://github.com/codacy/codacy-coverage-reporter/releases/tag/11.2.4/codacy-coverage-reporter-11.2.4-assembly.jar
