@@ -7,7 +7,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
+
 @EnableScheduling
+@EnableEncryptableProperties
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
 public class BackendDesappApiApplication extends SpringBootServletInitializer {
 
