@@ -30,6 +30,6 @@ public interface ProjectRepository extends CrudRepository<Project, Integer> {
 
 	List<Project> findByIdNotIn(List<Integer> ids);
 
-	Boolean findByIdLocation_id(Integer location_id);
+	Project findByIdLocationId(Integer location_id);
 
 }

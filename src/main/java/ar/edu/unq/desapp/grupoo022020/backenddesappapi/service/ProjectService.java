@@ -57,6 +57,6 @@ public class ProjectService extends CommonServiceImpl<Project, ProjectRepository
 	}
 
 	public Boolean existProjectWithLocation(Integer id) {
-		return this.repository.findByIdLocation_id(id);
+		return this.repository.findByIdLocationId(id) != null;
 	}
 }
