@@ -42,6 +42,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -50,6 +51,7 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	compile 'org.springdoc:springdoc-openapi-ui:1.2.32'
 	compile 'io.springfox:springfox-swagger2:2.9.2'
+	compile 'com.github.ulisesbocchio:jasypt-spring-boot:2.1.1'
 }
 
 test {
@@ -67,9 +69,12 @@ jacocoTestReport {
         classDirectories.setFrom(files(classDirectories.files.collect {
             fileTree(dir: it,
                     exclude: ['**/aspects/*',
+                    		'**/config/*',
+                    		'**/jobs/*',
                     		'**/repositories/*', 
 	                    	'**/service/*', 
-	                    	'**/utils/*', 
+	                    	'**/utils/*',
+	                    	'**/viewmodel/*', 
 	                    	'**/ws/*'])
         }))
     }
