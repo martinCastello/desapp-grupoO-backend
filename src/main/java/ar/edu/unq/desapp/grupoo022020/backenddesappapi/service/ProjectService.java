@@ -55,4 +55,8 @@ public class ProjectService extends CommonServiceImpl<Project, ProjectRepository
 	public List<Project> findByIdNotIn(List<Integer> ids) {
 		return this.repository.findByIdNotIn(ids);
 	}
+
+	public Boolean existProjectWithLocation(Integer id) {
+		return this.repository.findByIdLocation_id(id);
+	}
 }
