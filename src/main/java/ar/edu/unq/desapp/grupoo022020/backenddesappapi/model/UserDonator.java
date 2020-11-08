@@ -19,8 +19,9 @@ public class UserDonator extends User implements PropertyChangeListener {
 	@Column
 	private int points;
 
-	public UserDonator() { }
-	
+	public UserDonator() {
+	}
+
 	public UserDonator(String name, String mail, String userName, String password) {
 		super(name, mail, userName, password);
 		this.setPoints(0);
@@ -37,14 +38,17 @@ public class UserDonator extends User implements PropertyChangeListener {
 	public void setPoints(int points) {
 		this.points = points;
 	}
+
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		System.out.println("Variation of " + evt.getPropertyName());
-		System.out.println("\t(" + evt.getOldValue() + 
-							" -> " + evt.getNewValue() + ")");
+		System.out.println("\t(" + evt.getOldValue() + " -> " + evt.getNewValue() + ")");
 		System.out.println("Property in object " + evt.getSource());
-		
+
 		System.out.println("email received successfully");
 	}
-	
+
+	public Integer getId() {
+		return this.id;
+	}
 }

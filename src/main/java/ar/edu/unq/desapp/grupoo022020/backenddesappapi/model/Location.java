@@ -1,4 +1,5 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -10,8 +11,8 @@ import javax.persistence.SequenceGenerator;
 
 @Entity
 @SequenceGenerator(name = "SEQ_LOCATION", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_LOCATION")
-public class Location implements Serializable{
-	
+public class Location implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,9 +26,10 @@ public class Location implements Serializable{
 	private Integer population;
 	@Column
 	private Boolean isConnected;
-	
-	public Location() {}
-	
+
+	public Location() {
+	}
+
 	public Location(String name, String province, Integer population, Boolean isConnected) {
 		super();
 		this.setName(name);
@@ -35,7 +37,7 @@ public class Location implements Serializable{
 		this.setPopulation(population);
 		this.setIsConnected(isConnected);
 	}
-	
+
 	public String getName() {
 		return name;
 	}
@@ -66,5 +68,9 @@ public class Location implements Serializable{
 
 	public void setIsConnected(Boolean isConnected) {
 		this.isConnected = isConnected;
+	}
+
+	public Integer getId() {
+		return this.id;
 	}
 }

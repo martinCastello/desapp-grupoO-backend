@@ -1,4 +1,5 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.model;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
@@ -26,46 +27,46 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
 
-
 @Entity
 @SequenceGenerator(name = "SEQ_PROJECT", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_PROJECT")
-public class Project implements Serializable{
-	
+public class Project implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PROJECT")
 	private Integer id;
-	
+
 	@NotEmpty
 	private String name;
-	
+
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date startDate;
-	
+
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date endDate;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "locationId", referencedColumnName = "id")
 	@NonNull
 	private Location location;
-	
+
 	private Integer factor;
-	
+
 	private Float percentage;
-	
+
 	private Float amountCollected;
-	
+
 	private Boolean isClosed;
-	
+
 	@Transient
-	private PropertyChangeSupport pcs = new  PropertyChangeSupport(this);
-	
-	public Project() {}
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+
+	public Project() {
+	}
 
 	public Project(String name, Date endDate, Date startDate, Location location) throws Exception {
 		this.factor = 1000; // de 0 a $100.000
@@ -80,7 +81,7 @@ public class Project implements Serializable{
 	}
 
 	public void validationDates() throws Exception {
-		if(this.getStartDate().after(this.getEndDate()))
+		if (this.getStartDate().after(this.getEndDate()))
 			throw new Exception("Inconsistency in dates");
 	}
 
@@ -119,7 +120,7 @@ public class Project implements Serializable{
 	public Float getAmountCollected() {
 		return this.amountCollected;
 	}
-	
+
 	public Boolean isClosed() {
 		return this.isClosed;
 	}
@@ -138,7 +139,7 @@ public class Project implements Serializable{
 	public Float getPercentageAmountcollected() {
 		return this.getAmountCollected() / this.getAmountNeeded();
 	}
-	
+
 //	public Boolean canBeClosed() {
 //		return this.getEndDate().before(new Date()) && this.getAmountCollected() > this.getAmountMin();
 //	}
@@ -162,7 +163,6 @@ public class Project implements Serializable{
 		this.amountCollected += amount;
 	}
 
-
 	public void addObserver(PropertyChangeListener l) {
 		pcs.addPropertyChangeListener("theProperty", l);
 	}
@@ -172,10 +172,13 @@ public class Project implements Serializable{
 		this.isClosed = true;
 		pcs.firePropertyChange("theProperty", old, this.isClosed);
 	}
-	
+
 	@Override
-    public String toString() {
-        return "Project{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
-    }
-	
+	public String toString() {
+		return "Project{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
 }

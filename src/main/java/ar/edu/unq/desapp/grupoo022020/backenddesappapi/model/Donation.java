@@ -34,7 +34,7 @@ public class Donation {
 	private Float investment;
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date date;
 
 	public Donation() {
@@ -102,4 +102,7 @@ public class Donation {
 		return this.getProject().getAmountCollected();
 	}
 
+	public Integer getId() {
+		return this.id;
+	}
 }
