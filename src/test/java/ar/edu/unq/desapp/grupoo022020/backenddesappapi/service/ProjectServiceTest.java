@@ -32,5 +32,10 @@ class ProjectServiceTest {
 	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn8() {
 		assertTrue(service.findNextToEnd().size() == 8);
 	}
+	
+	@Test
+	void givenProjectWithTwoDonatorsWhenIgetTotalOfParticipantsThenReturn2() {
+		assertTrue(service.findByID(1).getTotalOfParticipants() == 2);
+	}
 
 }
