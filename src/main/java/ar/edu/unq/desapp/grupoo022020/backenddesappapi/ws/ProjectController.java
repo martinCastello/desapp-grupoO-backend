@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.aspects.LogExecutionTime;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.ProjectViewModel;
 
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/home/projects")
 public class ProjectController extends CommonController<Project, ProjectService> {
+	@Autowired
+	private LocationService locationService;
 
 	@LogExecutionTime
 	@GetMapping
@@ -46,15 +51,17 @@ public class ProjectController extends CommonController<Project, ProjectService>
 	}
 
 	@PostMapping("/createOrUpdateProject")
-	public ResponseEntity<Project> createOrUpdateProject(@RequestBody ProjectViewModel project) {
+	public ResponseEntity<Project> createOrUpdateProject(@RequestBody ProjectViewModel project) throws Exception {
 
-		var alreadyExist = service.existProjectWithLocation(project.idLocation);
+		var alreadyExist = service.existProjectWithLocation(project.getLocationId());
 
-		if (alreadyExist && project.id == 0) {
+		if (alreadyExist && project.getProjectId() == 0) {
 			return ResponseEntity.status(HttpStatus.FOUND).build();
 		} else {
-			service.save(project);
-			return new ResponseEntity<Project>(project, HttpStatus.OK);
+			var location = locationService.findByID(project.getLocationId());
+			Project proj = new Project(project.getName(), project.getEndDate(), project.getStartDate(), location);
+			service.save(proj);
+			return new ResponseEntity<Project>(proj, HttpStatus.OK);
 		}
 	}
 }
