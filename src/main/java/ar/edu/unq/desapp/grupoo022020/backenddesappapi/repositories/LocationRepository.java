@@ -18,7 +18,7 @@ public interface LocationRepository extends CrudRepository<Location, Integer> {
 
 	List<Location> findAll();
 
-	@Query(value = "select * from Location where id not in (select locationId from project", nativeQuery = true)
+	@Query(value = "select * from Location where id not in (select location_Id from project)", nativeQuery = true)
 	List<Location> locationWithOutProject();
 
 }
