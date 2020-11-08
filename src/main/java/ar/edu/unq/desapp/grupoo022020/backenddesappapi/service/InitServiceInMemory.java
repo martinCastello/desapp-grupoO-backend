@@ -52,10 +52,11 @@ public class InitServiceInMemory {
 		Date startDate = new Date();
 		Date endDate = new Date(startDate.getTime() + 1000);
 		int counter = 0;
-		
-		for (Location location : arsatWebService.getLocationsInInternetPlanningList()) {
+		var locations = arsatWebService.getLocationsInInternetPlanningList();
+		int x = (locations.size() / 2) - 1;
+		for (Location location : locations.subList(0, x)) {
 			Project project = new Project("Proyecto " + location.getName(), endDate, startDate, location);
-			if(counter == 1)
+			if (counter == 1)
 				project.close();
 			projectService.save(project);
 			counter++;

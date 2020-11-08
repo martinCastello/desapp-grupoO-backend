@@ -18,15 +18,20 @@ public class LocationController {
 
 	@Autowired
 	private LocationService service;
-	
+
 	@GetMapping("")
-    public List<Location> allLocations() {
-        List<Location> list = this.service.findAll();
-        return list;
-    }
-	
+	public List<Location> allLocations() {
+		List<Location> list = this.service.findAll();
+		return list;
+	}
+
 	@GetMapping("/Top10WithMoreTimeWithoutDonations")
-	public List<Location> findTop10WithMoreTimeWithoutDonations(){
+	public List<Location> findTop10WithMoreTimeWithoutDonations() {
 		return this.service.findTop10WithMoreTimeWithoutDonations();
+	}
+
+	@GetMapping("/locationWithOutProject")
+	public List<Location> findLocationWithOut() {
+		return this.service.locationWithOutProject();
 	}
 }
