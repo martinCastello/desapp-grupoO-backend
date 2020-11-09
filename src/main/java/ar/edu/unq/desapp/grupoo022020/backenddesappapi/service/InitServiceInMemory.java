@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -52,8 +53,9 @@ public class InitServiceInMemory {
 		Date startDate = new Date();
 		Date endDate = new Date(startDate.getTime() + 1000);
 		int counter = 0;
-		
-		for (Location location : arsatWebService.getLocationsInInternetPlanningList()) {
+		List<Location> locations = arsatWebService.getLocationsInInternetPlanningList();
+		int x = (locations.size() / 2) - 1;
+		for (Location location : locations.subList(0, x)) {
 			Project project = new Project("Proyecto " + location.getName(), endDate, startDate, location);
 			if(counter == 1)
 				project.close();

@@ -1,7 +1,6 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +14,6 @@ public class LocationService {
 
 	@Autowired
 	private LocationRepository repository;
-	
-	@Autowired 
-	private ProjectService projectService;
 	
 	@Transactional
 	public Location save(Location model) {
@@ -33,7 +29,10 @@ public class LocationService {
 	}
 	
 	public List<Location> findTop10WithMoreTimeWithoutDonations(){
-		return projectService.findTop10WithMoreTimeWithoutDonations().stream()
-				.map(p -> p.getLocation()).collect(Collectors.toList());
+		return this.repository.findTop10WithMoreTimeWithoutDonations();
+	}
+	
+	public List<Location> locationWithOutProject() {
+		return this.repository.locationWithOutProject();
 	}
 }

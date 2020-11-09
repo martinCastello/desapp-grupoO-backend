@@ -17,25 +17,24 @@ class ProjectServiceTest {
 	
 
 	@Test
-	void givenProjectsInitServiceInMemorywhenIGetQuantityProjectsThenReturn9() throws Exception {
-	
-		assertEquals(9, service.findAll().size());
+	void givenProjectsInitServiceInMemorywhenIGetQuantityProjectsThenReturn3() throws Exception {
+		assertEquals(3, service.findAll().size());
 	}
 	
 	@Test
-	void givenProjectsInitServiceInMemorywhenIGetProjectId9ThenReturnLast() throws Exception {
-		// Last register of futuros.json
-		assertEquals(6829, service.findByID(9).getPopulation());
+	void givenProjectsInitServiceInMemorywhenIGetProjectId9ThenReturnFIrst() throws Exception {
+		// First register of futuros.json
+		assertEquals(2231, service.findByID(1).get().getPopulation());
 	}
 	
 	@Test
-	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn8() {
-		assertTrue(service.findNextToEnd().size() == 8);
+	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn2() {
+		assertTrue(service.findNextToEnd().size() == 2);
 	}
 	
 	@Test
 	void givenProjectWithTwoDonatorsWhenIgetTotalOfParticipantsThenReturn2() {
-		assertTrue(service.findByID(1).getTotalOfParticipants() == 2);
+		assertTrue(service.findByID(1).get().getTotalOfParticipants() == 2);
 	}
 
 }

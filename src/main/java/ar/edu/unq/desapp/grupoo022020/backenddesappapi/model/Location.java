@@ -67,4 +67,8 @@ public class Location implements Serializable{
 	public void setIsConnected(Boolean isConnected) {
 		this.isConnected = isConnected;
 	}
+	
+	public Integer getId() {
+		return this.id;
+	}
 }

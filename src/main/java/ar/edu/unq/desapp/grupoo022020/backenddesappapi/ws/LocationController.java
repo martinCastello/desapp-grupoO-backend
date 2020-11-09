@@ -29,4 +29,9 @@ public class LocationController {
 	public List<Location> findTop10WithMoreTimeWithoutDonations(){
 		return this.service.findTop10WithMoreTimeWithoutDonations();
 	}
+	
+	@GetMapping("/locationWithOutProject")
+	public List<Location> findLocationWithOut() {
+		return this.service.locationWithOutProject();
+	}
 }
