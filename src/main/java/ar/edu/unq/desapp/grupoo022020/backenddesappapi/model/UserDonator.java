@@ -39,12 +39,16 @@ public class UserDonator extends User implements PropertyChangeListener {
 	}
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
+		// Se agregaria aca el servicio de mail para poder avisar que se cerro proyecto?
 		System.out.println("Variation of " + evt.getPropertyName());
 		System.out.println("\t(" + evt.getOldValue() + 
 							" -> " + evt.getNewValue() + ")");
 		System.out.println("Property in object " + evt.getSource());
-		
 		System.out.println("email received successfully");
+	}
+	
+	public Integer getId() {
+		return this.id;
 	}
 	
 }

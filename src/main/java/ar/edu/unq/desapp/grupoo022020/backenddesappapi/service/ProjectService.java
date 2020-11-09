@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,8 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.impl.CommonServic
 @Service
 public class ProjectService extends CommonServiceImpl<Project, ProjectRepository>{
 	
-	public Project findByID(Integer id) {
-		return this.repository.findById(id).get();
+	public Optional<Project> findByID(Integer id) {
+		return this.repository.findById(id);
 	}
 
 	public List<Project> findAll() {
@@ -25,9 +26,9 @@ public class ProjectService extends CommonServiceImpl<Project, ProjectRepository
 		return this.repository.findByIsClosed(Boolean.FALSE);
 	}
 	
-	public List<Project> findTop10WithMoreTimeWithoutDonations(){
-		return this.repository.findTop10WithMoreTimeWithoutDonations();
-	}
+//	public List<Project> findTop10WithMoreTimeWithoutDonations(){
+//		return this.repository.findTop10WithMoreTimeWithoutDonations();
+//	}
 	
 	public List<Project> findNextToEnd(){
 		Calendar currentDate = Calendar.getInstance();
@@ -48,5 +49,9 @@ public class ProjectService extends CommonServiceImpl<Project, ProjectRepository
 
 	public List<Project> findByIdNotIn(List<Integer> ids){
 		return this.repository.findByIdNotIn(ids);
+	}
+	
+	public Boolean existProjectWithLocation(Integer id) {
+		return this.repository.findByLocationId(id) != null;
 	}
 }

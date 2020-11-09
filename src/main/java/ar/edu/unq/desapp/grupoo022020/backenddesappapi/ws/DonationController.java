@@ -60,18 +60,18 @@ public class DonationController {
 
 		Optional<UserDonator> userDonator = userService.findByID(userId);
 
-		Project project = projectService.findByID(newDonationVM.getProjectId());
+		Optional<Project> project = this.projectService.findByID(newDonationVM.getProjectId());
 
-		if (userDonator.isEmpty() || project == null) {
+		if (userDonator.isEmpty() || project.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Donation newDonation = new Donation(userDonator.get(), project, newDonationVM.getInvestment());
+		Donation newDonation = new Donation(userDonator.get(), project.get(), newDonationVM.getInvestment());
 
 		Donation donation = donationService.save(newDonation);
 
-		userService.save(userDonator.get());
-		projectService.save(project);
+		this.userService.save(userDonator.get());
+		this.projectService.save(project.get());
 
 		return new ResponseEntity<Donation>(donation, HttpStatus.OK);
 	}

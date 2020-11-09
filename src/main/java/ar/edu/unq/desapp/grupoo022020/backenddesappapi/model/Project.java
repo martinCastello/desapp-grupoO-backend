@@ -187,4 +187,8 @@ public class Project implements Serializable{
 		this.totalOfParticipants = totalOfParticipants;
 	}
 	
+	public Integer getId() {
+		return this.id;
+	}
+	
 }

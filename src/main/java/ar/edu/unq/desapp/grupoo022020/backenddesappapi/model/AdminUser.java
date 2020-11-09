@@ -21,4 +21,8 @@ public class AdminUser extends User{
 		project.close();
 	}
 	
+	public Integer getId() {
+		return this.id;
+	}
+	
 }

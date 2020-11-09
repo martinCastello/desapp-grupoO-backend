@@ -102,4 +102,7 @@ public class Donation {
 		return this.getProject().getAmountCollected();
 	}
 
+	public Integer getId() {
+		return this.id;
+	}
 }

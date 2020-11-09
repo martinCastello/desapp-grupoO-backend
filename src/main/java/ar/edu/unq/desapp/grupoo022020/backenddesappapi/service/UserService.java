@@ -22,12 +22,7 @@ public class UserService {
 	}
 
 	public Optional<UserDonator> findByID(Integer id) {
-		try {
-			return this.repository.findById(id);
-		} catch (Exception e) {
-			return Optional.empty();
-		}
-
+		return this.repository.findById(id);
 	}
 
 	public List<UserDonator> findAll() {
@@ -42,12 +37,7 @@ public class UserService {
 	}
 
 	public Optional<UserDonator> findByNickName(String userName) {
-		try {
-			return this.repository.findByNickName(userName);
-		} catch (Exception e) {
-			return Optional.empty();
-		}
-
+		return this.repository.findByNickName(userName);
 	}
 
 	public List<UserDonator> getRankingDonators() {

@@ -20,6 +20,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.AdminUser;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserAdminService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.UserViewModel;
 
 @RestController
 @EnableAutoConfiguration
@@ -64,7 +65,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<Boolean> login(@RequestBody Map<String, String> credentials) {
+	public ResponseEntity<?> login(@RequestBody Map<String, String> credentials) {
 
 		var nickName = credentials.get("nickName");
 		var password = credentials.get("password");
@@ -83,20 +84,26 @@ public class UserController {
 
 	}
 
-	private ResponseEntity<Boolean> loginFor(Optional<UserDonator> donator, Optional<AdminUser> admin,
-			String password) {
-		if (!donator.isEmpty()) {
-			return this.validatePassword(donator.get().getPassword(), password, true);
-		} else {
-			return this.validatePassword(admin.get().getPassword(), password, false);
+	private ResponseEntity<?> loginFor(Optional<UserDonator> donator, Optional<AdminUser> admin,
+			String password){
+		UserViewModel user;
+		if(donator.isPresent()) {
+			UserDonator userDonator = donator.get();
+			user = new UserViewModel(userDonator.getName(), userDonator.getNickName(),
+					userDonator.getMail(), userDonator.getPassword(), true);
+		}else{
+			AdminUser userAdmin = admin.get();
+			user = new UserViewModel(userAdmin.getName(), userAdmin.getNickName(),
+					userAdmin.getMail(), userAdmin.getPassword(), false);
 		}
+		return this.validatePassword(admin.get().getPassword(), password, user);
 	}
 
-	private ResponseEntity<Boolean> validatePassword(String userPassword, String password, Boolean isDonator) {
+	private ResponseEntity<?> validatePassword(String userPassword, String password, UserViewModel user) {
 		if (password.equals(userPassword)) {
-			return new ResponseEntity<Boolean>(isDonator, HttpStatus.OK);
+			return new ResponseEntity<UserViewModel>(user, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Boolean>(isDonator, HttpStatus.BAD_GATEWAY);
+			return new ResponseEntity<UserViewModel>(user, HttpStatus.BAD_GATEWAY);
 		}
 	}
 
