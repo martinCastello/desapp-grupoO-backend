@@ -1,5 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.impl;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,11 @@ public class CommonServiceImpl<E, R extends CrudRepository<E, Integer>> implemen
 	@Transactional
 	public E save(@Valid E entity) {
 		return this.repository.save(entity);
+	}
+	
+	@Transactional
+	public Iterable<E> saveAll(List<E> entities) {
+		return this.repository.saveAll(entities);
 	}
 
 }
