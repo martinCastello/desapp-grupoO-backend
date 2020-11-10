@@ -91,12 +91,13 @@ public class UserController {
 			UserDonator userDonator = donator.get();
 			user = new UserViewModel(userDonator.getName(), userDonator.getNickName(),
 					userDonator.getMail(), userDonator.getPassword(), true);
+			return this.validatePassword(userDonator.getPassword(), password, user);
 		}else{
 			AdminUser userAdmin = admin.get();
 			user = new UserViewModel(userAdmin.getName(), userAdmin.getNickName(),
 					userAdmin.getMail(), userAdmin.getPassword(), false);
+			return this.validatePassword(userAdmin.getPassword(), password, user);
 		}
-		return this.validatePassword(admin.get().getPassword(), password, user);
 	}
 
 	private ResponseEntity<?> validatePassword(String userPassword, String password, UserViewModel user) {
