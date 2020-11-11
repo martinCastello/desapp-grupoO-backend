@@ -12,6 +12,8 @@ public class ProjectViewModel {
 	private Date startDate;
 
 	private Date endDate;
+	
+	private Integer factor;
 
 	public ProjectViewModel(int locationId, int projectId, String name, Date startDate, Date endDate) {
 		this.setLocationId(locationId);
@@ -62,6 +64,14 @@ public class ProjectViewModel {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public Integer getFactor() {
+		return factor;
+	}
+
+	public void setFactor(Integer factor) {
+		this.factor = factor;
 	}
 
 }

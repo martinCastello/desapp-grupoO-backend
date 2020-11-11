@@ -64,6 +64,7 @@ public class ProjectController extends CommonController<Project, ProjectService>
 		} else {
 			Location location = this.locationService.findByID(project.getLocationId());
 			Project proj = new Project(project.getName(), project.getEndDate(), project.getStartDate(), location);
+			proj.setFactor(project.getFactor());
 			service.save(proj);
 			return new ResponseEntity<Project>(proj, HttpStatus.OK);
 		}
