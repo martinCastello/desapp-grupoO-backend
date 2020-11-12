@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +64,8 @@ public class ProjectController extends CommonController<Project, ProjectService>
 			return ResponseEntity.status(HttpStatus.FOUND).build();
 		} else {
 			Location location = this.locationService.findByID(project.getLocationId());
-			Project proj = new Project(project.getName(), project.getEndDate(), project.getStartDate(), location);
+			Date date = new Date();
+			Project proj = new Project(project.getName(), new Date(date.getTime()+100000), date, location);
 			proj.setFactor(project.getFactor());
 			service.save(proj);
 			return new ResponseEntity<Project>(proj, HttpStatus.OK);

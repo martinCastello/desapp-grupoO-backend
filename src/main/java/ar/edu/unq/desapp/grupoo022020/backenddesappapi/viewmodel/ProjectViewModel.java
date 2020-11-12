@@ -9,13 +9,13 @@ public class ProjectViewModel {
 
 	private String name;
 
-	private Date startDate;
+	private String startDate;
 
-	private Date endDate;
+	private String endDate;
 	
 	private Integer factor;
 
-	public ProjectViewModel(int locationId, int projectId, String name, Date startDate, Date endDate) {
+	public ProjectViewModel(int locationId, int projectId, String name, String startDate, String endDate) {
 		this.setLocationId(locationId);
 		this.setProjectId(projectId);
 		this.setEndDate(endDate);
@@ -50,19 +50,19 @@ public class ProjectViewModel {
 		this.name = name;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
