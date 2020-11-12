@@ -58,11 +58,11 @@ public class InitServiceInMemory {
 		UserDonator mariel = new UserDonator("mariel", "mariel@gmail.com", "marielNick", "pass");
 		UserDonator carina = new UserDonator("carina", "carina@gmail.com", "carinaNick", "pass");
 		UserDonator juana = new UserDonator("juana", "juana@gmail.com", "juanaNick", "pass");
-		AdminUser renata = new AdminUser("carina", "carina@gmail.com", "carinaNick", "pass");
+		AdminUser administrador = new AdminUser("administrador", "administrador@gmail.com", "administradorNick", "pass");
 		userDonatorService.save(mariel);
 		userDonatorService.save(carina);
 		userDonatorService.save(juana);
-		userAdminService.save(renata);
+		userAdminService.save(administrador);
 		
 		/* locations and projects create */
 		Date startDate = new Date();
