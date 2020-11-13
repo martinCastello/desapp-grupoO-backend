@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AdminDetails;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationRequest;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationResponse;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;

@@ -43,7 +43,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
       .requiresSecure();
 	  
     //h2-console
-    http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll();
+    http.authorizeRequests()
+    	.antMatchers("/").permitAll()
+    	.antMatchers("/h2-console/**").permitAll()
+    	.antMatchers("/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui/**","/swagger-ui/index.html", "/webjars/**").permitAll();
     http.csrf().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
       .and()

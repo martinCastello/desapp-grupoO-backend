@@ -13,6 +13,8 @@ public class AdminUser extends User{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USER_AMIN")
 	private Integer id;
 	
+	public AdminUser() {}
+	
 	public AdminUser(String name, String mail, String nickName, String password) {
 		super(name, mail, nickName, password);
 	}
