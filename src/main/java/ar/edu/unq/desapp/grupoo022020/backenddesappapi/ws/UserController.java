@@ -74,16 +74,19 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public AuthenticationResponse login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+		AuthenticationResponse authenticationResponse = null;
 		try {
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 			authenticationManager.authenticate(authentication);
 		}catch (BadCredentialsException e) {
-            throw new Exception("Invalid username or password", e);
+			// throw new Exception("Invalid username or password", e);
+			return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.BAD_GATEWAY);
         }
 		UserDetails userDetails = myUserDetailService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtService.createToken(userDetails);
-        return new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class));
+		authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class));
+        return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.OK);
 //		
 //		var nickName = credentials.get("nickName");
 //		var password = credentials.get("password");
