@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AdminDetails;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationRequest;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationResponse;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.MyUserDetailService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.MyUserDetails;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserAdminService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
@@ -81,8 +83,8 @@ public class UserController {
             throw new Exception("Invalid username or password", e);
         }
 		UserDetails userDetails = myUserDetailService.loadUserByUsername(authenticationRequest.getUsername());
-        String token = jwtService.createToken(userDetails);
-        return new AuthenticationResponse(token);
+		String token = jwtService.createToken(userDetails);
+        return new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class));
 //		
 //		var nickName = credentials.get("nickName");
 //		var password = credentials.get("password");
