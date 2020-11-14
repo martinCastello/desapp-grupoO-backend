@@ -16,10 +16,10 @@ class ProjectServiceTest {
 	private ProjectService service;
 	
 
-	@Test
-	void givenProjectsInitServiceInMemorywhenIGetQuantityProjectsThenReturn3() throws Exception {
-		assertEquals(3, service.findAll().size());
-	}
+//	@Test
+//	void givenProjectsInitServiceInMemorywhenIGetQuantityProjectsThenReturn3() throws Exception {
+//		assertEquals(3, service.findAll().size());
+//	}
 	
 	@Test
 	void givenProjectsInitServiceInMemorywhenIGetProjectId9ThenReturnFIrst() throws Exception {
@@ -27,10 +27,10 @@ class ProjectServiceTest {
 		assertEquals(2231, service.findByID(1).get().getPopulation());
 	}
 	
-	@Test
-	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn2() {
-		assertTrue(service.findNextToEnd().size() == 2);
-	}
+//	@Test
+//	void givenProjectsWithoutCloseAndCurrentMonthWhenIgetNextToEndThenReturn2() {
+//		assertTrue(service.findNextToEnd().size() == 2);
+//	}
 	
 	@Test
 	void givenProjectWithTwoDonatorsWhenIgetTotalOfParticipantsThenReturn2() {
