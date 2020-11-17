@@ -59,11 +59,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
      http.headers().frameOptions().disable();
   }
   
-//  @Override
-//  public void addCorsMappings(CorsRegistry registry) {
-//      //Permission for frontend
-//	  registry.addMapping("/**");
-//  }
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+      //Permission for frontend
+	  registry.addMapping("/**");
+  }
   
   @Bean
   public PasswordEncoder getPasswordEncoder() {
