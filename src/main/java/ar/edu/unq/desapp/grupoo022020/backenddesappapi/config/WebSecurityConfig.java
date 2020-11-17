@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
       .and()
       .authorizeRequests()
       .antMatchers("/login").permitAll()
+      .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
       .anyRequest().authenticated()
       .and().addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class);
      http.headers().frameOptions().disable();
