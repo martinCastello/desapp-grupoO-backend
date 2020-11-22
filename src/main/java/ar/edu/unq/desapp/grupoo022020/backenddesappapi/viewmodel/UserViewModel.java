@@ -7,13 +7,15 @@ public class UserViewModel {
     private String mail;
     private String password;
 	private Boolean isUserDonator;
+	private String avatar;
 	
-	public UserViewModel(String name, String nickname, String mail, String password, Boolean isUserDonator) {
+	public UserViewModel(String name, String nickname, String mail, String password, Boolean isUserDonator, String avatar) {
 		this.setName(name);
 		this.setNickName(nickname);
 		this.setMail(mail);
 		this.setPassword(password);
 		this.setUserDonator(isUserDonator);
+		this.setAvatar(avatar);
 	}
     
     public String getName() {
@@ -45,5 +47,13 @@ public class UserViewModel {
 	}
 	public void setUserDonator(boolean isUserDonator) {
 		this.isUserDonator = isUserDonator;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 }

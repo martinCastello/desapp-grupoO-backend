@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AdminDetails;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationRequest;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationResponse;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;
@@ -28,6 +27,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.AdminUser;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserAdminService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.UserViewModel;
 
 @RestController
 @EnableAutoConfiguration
@@ -159,5 +159,15 @@ public class UserController {
 	public ResponseEntity<List<UserDonator>> rankingDonators() {
 		List<UserDonator> list = userService.getRankingDonators();
 		return ResponseEntity.ok().body(list);
+	}
+	
+	@PostMapping("/update")
+	public ResponseEntity<?> createOrUpdateProject(@RequestBody UserViewModel user) throws Exception {
+		UserDonator userDonator = this.userService.findByNickName(user.getNickName()).get();
+		userDonator.setName(user.getName());
+		userDonator.setPassword(user.getPassword());
+		userDonator.setAvatar(user.getAvatar());
+		this.userService.save(userDonator);
+		return new ResponseEntity<UserDonator>(userDonator, HttpStatus.OK);
 	}
 }
