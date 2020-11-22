@@ -1,6 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AdminDetails;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationRequest;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.AuthenticationResponse;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.MyUserDetailService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.MyUserDetails;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.AdminUser;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserAdminService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.UserService;
@@ -85,9 +88,20 @@ public class UserController {
         }
 		UserDetails userDetails = myUserDetailService.loadUserByUsername(authenticationRequest.getUsername());
 		String token = jwtService.createToken(userDetails);
-		authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class));
+		// Momentaneo
+		Optional<AdminUser> admin = adminService.findByNickName(authenticationRequest.getUsername());
+        Optional<UserDonator> user = userService.findByNickName(authenticationRequest.getUsername());
+        if (admin.isPresent() || user.isPresent()) {
+	        if(user.isPresent()) {
+	        	authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class), user.get().getId());
+			}else{
+				authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class), admin.get().getId());
+			}
+        }
+        //
+//		authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class));
         return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.OK);
-//		
+		
 //		var nickName = credentials.get("nickName");
 //		var password = credentials.get("password");
 //

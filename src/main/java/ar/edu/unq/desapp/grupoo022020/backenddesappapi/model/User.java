@@ -12,6 +12,8 @@ abstract class User {
     private String mail;
 	@Column
     private String password;
+	@Column 
+	private String avatar;
     
 	public User() {	}
 	
@@ -43,6 +45,14 @@ abstract class User {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
 	}
 
 	public String getNickName() {
