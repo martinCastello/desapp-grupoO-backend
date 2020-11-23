@@ -35,7 +35,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebSecurity
 public class WebSecurityConfig implements WebMvcConfigurer {
 
-	@Configuration                                                      
+	@Configuration
+	@Order(2)
 	public class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
 		
 		@Value("${auth0.audience}")
@@ -69,8 +70,8 @@ public class WebSecurityConfig implements WebMvcConfigurer {
 	
 	
 	@Configuration
-    @Order(1)
-    public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+	@Order(1)
+	public static class FormLoginWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 		@Autowired
 		private MyUserDetailService myUserDetailService;
 		

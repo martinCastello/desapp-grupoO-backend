@@ -5,8 +5,8 @@ import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +26,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.ProjectViewModel;
 
 @RestController
-@EnableAutoConfiguration
-@RequestMapping("/home/projects")
+@RequestMapping(path = "/home/projects", produces = MediaType.APPLICATION_JSON_VALUE)
 @CrossOrigin(origins = "*")
 public class ProjectController extends CommonController<Project, ProjectService>{
 	
@@ -40,11 +39,16 @@ public class ProjectController extends CommonController<Project, ProjectService>
     @GetMapping
     public ResponseEntity<?> allProjects(@RequestHeader("Authorization") String header) {
     	String token = header.split(" ")[1];
-    	if(jwtService.hasTokenExpired(token)) {
-    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-    	}else {
+    	try {
+    		if(jwtService.hasTokenExpired(token)) {
+        		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        	}else {
+        		return ResponseEntity.ok(service.findAll());
+        	}
+    	}catch(Exception e) {
     		return ResponseEntity.ok(service.findAll());
     	}
+    	
     }
     
     @GetMapping("/open")
