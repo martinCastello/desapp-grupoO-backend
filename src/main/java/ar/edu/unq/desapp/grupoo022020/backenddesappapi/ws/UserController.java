@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +32,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.UserViewModel;
 
 @RestController
 @EnableAutoConfiguration
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired

@@ -31,13 +31,17 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         String authorizationHeader = request.getHeader(HEADER_AUTHORIZATION);
         if (authorizationHeader != null && authorizationHeader.startsWith(HEADER_TOKEN_PREFIX)) {
             String token = authorizationHeader.replace(HEADER_TOKEN_PREFIX, "");
-            String username = jwtService.extractUsername(token);
-
-            UserDetails userDetails = myUserDetailService.loadUserByUsername(username);
-            if (jwtService.validateToken(token, userDetails)) {
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+            try {
+            	String username = jwtService.extractUsername(token);
+                UserDetails userDetails = myUserDetailService.loadUserByUsername(username);
+                if (jwtService.validateToken(token, userDetails)) {
+                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }catch (Exception e) {
+            	
             }
+            
         }
         filterChain.doFilter(request, response);
     }

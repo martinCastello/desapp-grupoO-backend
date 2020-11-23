@@ -3,6 +3,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/home/locations")
+@CrossOrigin(origins = "*")
 public class LocationController extends CommonController<Location, LocationService>{
 	
 	@GetMapping("")

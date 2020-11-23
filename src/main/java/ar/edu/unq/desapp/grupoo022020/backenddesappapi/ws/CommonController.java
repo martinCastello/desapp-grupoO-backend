@@ -9,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.CommonService;
 
+@CrossOrigin(origins = "*")
 public class CommonController<E, S extends CommonService<E>> {
 
 	@Autowired
