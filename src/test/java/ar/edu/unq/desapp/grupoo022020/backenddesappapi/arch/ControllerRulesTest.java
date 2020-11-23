@@ -12,7 +12,7 @@ import com.tngtech.archunit.lang.ArchRule;
 public class ControllerRulesTest {
 
 	@Test
-    public void some_architecture_rule() {
+    public void testSomeArchitectureRule() {
         JavaClasses importedClasses = new ClassFileImporter()
         		.importPackages("ar.edu.unq.desapp.grupoo022020.backenddesappapi");
     
