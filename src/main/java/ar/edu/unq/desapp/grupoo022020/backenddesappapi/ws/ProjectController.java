@@ -1,5 +1,6 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
@@ -19,6 +20,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Location;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.ProjectViewModel;
 
 @RestController
@@ -64,8 +66,9 @@ public class ProjectController extends CommonController<Project, ProjectService>
 			return ResponseEntity.status(HttpStatus.FOUND).build();
 		} else {
 			Location location = this.locationService.findByID(project.getLocationId());
-			Date date = new Date();
-			Project proj = new Project(project.getName(), new Date(date.getTime()+100000), date, location);
+			Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getEndDate());
+			Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getStartDate());
+			Project proj = new Project(project.getName(), endDate, startDate, location);
 			proj.setFactor(project.getFactor());
 			service.save(proj);
 			return new ResponseEntity<Project>(proj, HttpStatus.OK);
