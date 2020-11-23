@@ -55,6 +55,14 @@ public class JwtService {
                 .getBody()
                 .getSubject();
     }
+    
+    public Date extractExpirationTime(String token) {
+        return Jwts.parser()
+                .setSigningKey(SECRET_KEY)
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+    }
 
     public Collection<? extends GrantedAuthority> getAuthorities(String token) {
         Claims claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody();

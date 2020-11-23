@@ -93,9 +93,15 @@ public class UserController {
         Optional<UserDonator> user = userService.findByNickName(authenticationRequest.getUsername());
         if (admin.isPresent() || user.isPresent()) {
 	        if(user.isPresent()) {
-	        	authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class), user.get().getId());
+	        	authenticationResponse = new AuthenticationResponse(token, 
+	        			userDetails.getClass().equals(MyUserDetails.class), 
+	        			user.get().getId(),
+	        			jwtService.extractExpirationTime(token).getTime());
 			}else{
-				authenticationResponse = new AuthenticationResponse(token, userDetails.getClass().equals(MyUserDetails.class), admin.get().getId());
+				authenticationResponse = new AuthenticationResponse(token, 
+						userDetails.getClass().equals(MyUserDetails.class), 
+						admin.get().getId(),
+						jwtService.extractExpirationTime(token).getTime());
 			}
         }
         //

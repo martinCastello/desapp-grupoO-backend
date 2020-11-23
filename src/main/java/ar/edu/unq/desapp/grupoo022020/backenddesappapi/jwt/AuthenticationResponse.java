@@ -4,11 +4,13 @@ public class AuthenticationResponse {
     private String token;
     private boolean isUserDonator;
     private Integer userId;
+    private Long expirationTime;
     
-    public AuthenticationResponse(String token, boolean isDonator, Integer userId) {
+    public AuthenticationResponse(String token, boolean isDonator, Integer userId, Long expirationTime) {
     	this.setToken(token);
     	this.setUserDonator(isDonator);
     	this.setUserId(userId);
+    	this.setExpirationTime(expirationTime);
     }
 
 	public String getToken() {
@@ -33,5 +35,13 @@ public class AuthenticationResponse {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
+	}
+
+	public Long getExpirationTime() {
+		return expirationTime;
+	}
+
+	public void setExpirationTime(Long expirationTime) {
+		this.expirationTime = expirationTime;
 	}
 }

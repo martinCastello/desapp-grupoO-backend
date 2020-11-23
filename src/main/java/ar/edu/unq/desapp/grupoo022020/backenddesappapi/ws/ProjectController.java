@@ -1,8 +1,11 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
+import java.net.http.HttpClient;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -12,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.aspects.LogExecutionTime;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Location;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
@@ -30,11 +35,17 @@ public class ProjectController extends CommonController<Project, ProjectService>
 	
 	@Autowired
 	private LocationService locationService;
+	@Autowired
+	private JwtService jwtService;
 
     @LogExecutionTime
     @GetMapping
-    public ResponseEntity<?> allProjects() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<?> allProjects(@RequestHeader("Authorization") String token) {
+    	if(jwtService.hasTokenExpired(token)) {
+    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    	}else {
+    		return ResponseEntity.ok(service.findAll());
+    	}
     }
     
     @GetMapping("/open")
