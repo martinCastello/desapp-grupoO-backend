@@ -1,7 +1,7 @@
 package ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel;
 
 public class UserViewModel {
-
+	private Integer id;
 	private String name;
     private String nickName; 
     private String mail;
@@ -9,7 +9,8 @@ public class UserViewModel {
 	private Boolean isUserDonator;
 	private String avatar;
 	
-	public UserViewModel(String name, String nickname, String mail, String password, Boolean isUserDonator, String avatar) {
+	public UserViewModel(Integer id, String name, String nickname, String mail, String password, Boolean isUserDonator, String avatar) {
+		this.setId(id);
 		this.setName(name);
 		this.setNickName(nickname);
 		this.setMail(mail);
@@ -55,5 +56,13 @@ public class UserViewModel {
 
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 }

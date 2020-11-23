@@ -40,7 +40,8 @@ public class ProjectController extends CommonController<Project, ProjectService>
 
     @LogExecutionTime
     @GetMapping
-    public ResponseEntity<?> allProjects(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> allProjects(@RequestHeader("Authorization") String header) {
+    	String token = header.split(" ")[1];
     	if(jwtService.hasTokenExpired(token)) {
     		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     	}else {
