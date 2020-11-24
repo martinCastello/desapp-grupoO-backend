@@ -1,0 +1,51 @@
+
+<configuration>
+    <springProperty scope="context" name="rootLevel" source="log.root.level"/>
+    <springProperty scope="context" name="loggerPackage" source="log.logger.package"/>
+    <springProperty scope="context" name="loggerLevel" source="log.logger.level"/>
+
+
+    <!-- Development profile -->
+    <springProfile name="dev">
+        <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+            <layout class="ch.qos.logback.classic.PatternLayout">
+                <Pattern>
+                    %d{ISO8601} %-5level [%t] %C{1.}: %msg%n%throwable
+                </Pattern>
+            </layout>
+        </appender>
+        <root level="${rootLevel}">
+            <appender-ref ref="Console" />
+        </root>
+        <logger name="${loggerPackage}" level="${loggerLevel}" additivity="false">
+            <appender-ref ref="Console" />
+        </logger>
+    </springProfile>
+
+    <!-- Staging/production profile -->
+    <springProfile name="dev">
+        <springProperty scope="context" name="appName" source="log.app.name"/>
+        <springProperty scope="context" name="logPath" source="log.path"/>   
+        <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${logPath}/${appName}.log</file>
+            <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                <Pattern>%d ${appName} %p %C{1.} [%t] %m%n</Pattern>
+            </encoder>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${logPath}/archived/${appName}-%d{yyyy-MM-dd}.%i.log
+                </fileNamePattern>
+                <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                    <maxFileSize>50MB</maxFileSize>
+                </timeBasedFileNamingAndTriggeringPolicy>
+                <maxHistory>5</maxHistory>
+                <totalSizeCap>300MB</totalSizeCap>
+            </rollingPolicy>
+        </appender>
+        <root level="${rootLevel}">
+            <appender-ref ref="RollingFile" />
+        </root>
+        <logger name="${loggerPackage}" level="${loggerLevel}" additivity="false">
+            <appender-ref ref="RollingFile" />
+        </logger>
+    </springProfile>
+</configuration>
