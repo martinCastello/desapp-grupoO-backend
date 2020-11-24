@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.lang.NonNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -37,11 +39,13 @@ public class Project implements Serializable{
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date startDate;
 	
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date endDate;
 	
@@ -51,8 +55,10 @@ public class Project implements Serializable{
 	
 	private Integer factor;
 	
+	@NumberFormat(style = NumberFormat.Style.PERCENT)
 	private Float percentage;
 	
+	@NumberFormat(style = NumberFormat.Style.CURRENCY)
 	private Float amountCollected;
 	
 	private Boolean isClosed;

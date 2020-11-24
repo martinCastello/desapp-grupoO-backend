@@ -23,7 +23,7 @@
     </springProfile>
 
     <!-- Staging/production profile -->
-    <springProfile name="dev">
+    <springProfile name="!dev">
         <springProperty scope="context" name="appName" source="log.app.name"/>
         <springProperty scope="context" name="logPath" source="log.path"/>   
         <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
