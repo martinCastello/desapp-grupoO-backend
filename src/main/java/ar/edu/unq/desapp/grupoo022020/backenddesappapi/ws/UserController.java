@@ -181,7 +181,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/loginWithGoogle")
-	public ResponseEntity<?> loginWithGoogle(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> loginWithGoogle(@RequestBody UserViewModel authenticationRequest) throws Exception {
 		AuthenticationResponse authenticationResponse = null;
 		Optional<AdminUser> admin = adminService.findByMail(authenticationRequest.getMail());
         Optional<UserDonator> user = userService.findByMail(authenticationRequest.getMail());
@@ -200,7 +200,8 @@ public class UserController {
         }else {
         	Random rand = new Random();
         	int num = rand.nextInt();
-        	UserDonator userDonator = new UserDonator("google", authenticationRequest.getMail(), authenticationRequest.getUsername(), String.valueOf(num));
+        	UserDonator userDonator = new UserDonator(authenticationRequest.getName(), authenticationRequest.getMail(), authenticationRequest.getNickName(), String.valueOf(num));
+        	userDonator.setAvatar(authenticationRequest.getAvatar());
         	userService.save(userDonator);
         }
         return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.OK);
