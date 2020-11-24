@@ -7,15 +7,6 @@ public class DonationViewModel {
 
 	private Float investment;
 
-	public DonationViewModel(int userId, int projectId, Float invest) {
-		this.setUserId(userId);
-		this.setProjectId(projectId);
-		this.setInvestment(invest);
-	}
-
-	public DonationViewModel() {
-	}
-
 	public Integer getUserId() {
 		return userId;
 	}

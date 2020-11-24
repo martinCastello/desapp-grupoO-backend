@@ -15,17 +15,6 @@ public class ProjectViewModel {
 	
 	private Integer factor;
 
-	public ProjectViewModel(int locationId, int projectId, String name, String startDate, String endDate) {
-		this.setLocationId(locationId);
-		this.setProjectId(projectId);
-		this.setEndDate(endDate);
-		this.setName(name);
-		this.setStartDate(startDate);
-	}
-
-	public ProjectViewModel() {
-	}
-
 	public Integer getLocationId() {
 		return locationId;
 	}
