@@ -30,18 +30,15 @@ public class UserAdminService {
 	}
 
 	public Optional<AdminUser> findByNickName(String nickName) {
-		try {
-			return this.repository.findByNickName(nickName);
-		} catch (Exception e) {
-			return Optional.empty();
-		}
+		return this.repository.findByNickName(nickName);
 	}
 
+	public Optional<AdminUser> findByMail(String mail) {
+		return this.repository.findByMail(mail);
+	}
+	
 	public boolean exist(String userName, String mail) {
-		var existWithUserName = this.findByNickName(userName) != null;
-		var existWithMail = this.repository.findByMail(mail) != null;
-
-		return existWithMail || existWithUserName;
+		return this.findByNickName(userName).isPresent() || this.repository.findByMail(mail).isPresent();
 	}
 
 }

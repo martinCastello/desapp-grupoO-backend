@@ -30,14 +30,15 @@ public class UserService {
 	}
 
 	public boolean exist(String userName, String mail) {
-		var existWithUserName = this.findByNickName(userName) != null;
-		var existWithMail = this.repository.findByMail(mail) != null;
-
-		return existWithMail || existWithUserName;
+		return this.findByNickName(userName).isPresent() || this.repository.findByMail(mail).isPresent();
 	}
 
 	public Optional<UserDonator> findByNickName(String userName) {
 		return this.repository.findByNickName(userName);
+	}
+	
+	public Optional<UserDonator> findByMail(String mail) {
+		return this.repository.findByMail(mail);
 	}
 
 	public List<UserDonator> getRankingDonators() {

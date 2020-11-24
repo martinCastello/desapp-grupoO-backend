@@ -18,7 +18,7 @@ public interface UserDonatorRepository extends CrudRepository<UserDonator, Integ
 
 	List<UserDonator> findAll();
 
-	UserDonator findByMail(String mail);
+	Optional<UserDonator> findByMail(String mail);
 
 	Optional<UserDonator> findByNickName(String userName);
 

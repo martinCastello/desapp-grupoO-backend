@@ -2,6 +2,7 @@ package ar.edu.unq.desapp.grupoo022020.backenddesappapi.ws;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -177,5 +178,32 @@ public class UserController {
 		userDonator.setAvatar(user.getAvatar());
 		this.userService.save(userDonator);
 		return new ResponseEntity<UserDonator>(userDonator, HttpStatus.OK);
+	}
+	
+	@PostMapping("/loginWithGoogle")
+	public ResponseEntity<?> loginWithGoogle(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+		AuthenticationResponse authenticationResponse = null;
+		Optional<AdminUser> admin = adminService.findByMail(authenticationRequest.getMail());
+        Optional<UserDonator> user = userService.findByMail(authenticationRequest.getMail());
+        if (admin.isPresent() || user.isPresent()) {
+	        if(user.isPresent()) {
+	        	authenticationResponse = new AuthenticationResponse(null, 
+	        			true, 
+	        			user.get().getId(),
+	        			null);
+			}else{
+				authenticationResponse = new AuthenticationResponse(null, 
+						false, 
+						admin.get().getId(),
+						null);
+			}
+        }else {
+        	Random rand = new Random();
+        	int num = rand.nextInt();
+        	UserDonator userDonator = new UserDonator("google", authenticationRequest.getMail(), authenticationRequest.getUsername(), String.valueOf(num));
+        	userService.save(userDonator);
+        }
+        return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.OK);
+
 	}
 }
