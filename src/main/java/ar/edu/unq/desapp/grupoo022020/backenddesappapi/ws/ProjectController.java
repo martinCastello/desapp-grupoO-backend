@@ -88,5 +88,17 @@ public class ProjectController extends CommonController<Project, ProjectService>
 			return new ResponseEntity<Project>(proj, HttpStatus.OK);
 		}
 	}
+	
+	@PostMapping("close/{id}")
+	public ResponseEntity<?> closeById(@PathVariable String id) {
+		Optional<Project> project = this.service.findByID(Integer.parseInt(id));
+		if (project.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		Project projectToClose = project.get();
+		projectToClose.close();
+		service.save(projectToClose);
+		return new ResponseEntity<Project>(projectToClose, HttpStatus.OK);
+	}
    
 }
