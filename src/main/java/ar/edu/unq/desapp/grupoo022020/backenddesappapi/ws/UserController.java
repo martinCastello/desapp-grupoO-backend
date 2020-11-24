@@ -203,6 +203,10 @@ public class UserController {
         	UserDonator userDonator = new UserDonator(authenticationRequest.getName(), authenticationRequest.getMail(), authenticationRequest.getNickName(), String.valueOf(num));
         	userDonator.setAvatar(authenticationRequest.getAvatar());
         	userService.save(userDonator);
+        	authenticationResponse = new AuthenticationResponse(null, 
+					true, 
+					userDonator.getId(),
+					null);
         }
         return new ResponseEntity<AuthenticationResponse>(authenticationResponse, HttpStatus.OK);
 
