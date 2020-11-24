@@ -170,7 +170,7 @@ public class UserController {
 		return ResponseEntity.ok().body(list);
 	}
 	
-	@PostMapping("/update")
+	@PostMapping("/home/users/update")
 	public ResponseEntity<?> createOrUpdateProject(@RequestBody UserViewModel user) throws Exception {
 		UserDonator userDonator = this.userService.findByNickName(user.getNickName()).get();
 		userDonator.setName(user.getName());
