@@ -8,16 +8,6 @@ public class UserViewModel {
     private String password;
 	private Boolean isUserDonator;
 	private String avatar;
-	
-	public UserViewModel(Integer id, String name, String nickname, String mail, String password, Boolean isUserDonator, String avatar) {
-		this.setId(id);
-		this.setName(name);
-		this.setNickName(nickname);
-		this.setMail(mail);
-		this.setPassword(password);
-		this.setUserDonator(isUserDonator);
-		this.setAvatar(avatar);
-	}
     
     public String getName() {
 		return name;
