@@ -76,16 +76,21 @@ public class ProjectController extends CommonController<Project, ProjectService>
 
 		boolean alreadyExist = this.service.existProjectWithLocation(project.getLocationId());
 
-		if (alreadyExist && project.getProjectId() == 0) {
-			return ResponseEntity.status(HttpStatus.FOUND).build();
-		} else {
+		try {
 			Location location = this.locationService.findByID(project.getLocationId());
 			Date endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getEndDate());
 			Date startDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(project.getStartDate());
-			Project proj = new Project(project.getName(), endDate, startDate, location);
+			Project proj;
+			if (alreadyExist) {
+				proj  = this.service.findByID(project.getProjectId()).get();
+			} else {
+				proj = new Project(project.getName(), endDate, startDate, location);
+			}
 			proj.setFactor(project.getFactor());
 			service.save(proj);
 			return new ResponseEntity<Project>(proj, HttpStatus.OK);
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}
 	}
 	
