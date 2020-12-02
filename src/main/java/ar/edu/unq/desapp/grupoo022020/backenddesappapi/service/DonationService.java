@@ -15,9 +15,12 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.repositories.DonationRepo
 public class DonationService {
 	@Autowired
 	private DonationRepository repository;
+	@Autowired
+	private ListWaitingSending listWaitingSendingService;
 
 	@Transactional
 	public Donation save(Donation donation) {
+		listWaitingSendingService.addUsers(donation.getProject().getId(), donation.getUser());
 		var donationsMadeInCurrentMonth = this.getDonationsInCurrentMonth(donation.getUser());
 		PointCalculatorContext.givePointsToUser(donation, donationsMadeInCurrentMonth.size());
 		return this.repository.save(donation);

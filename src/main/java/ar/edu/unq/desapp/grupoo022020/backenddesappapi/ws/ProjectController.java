@@ -20,6 +20,9 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.aspects.LogExecutionTime;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.jwt.JwtService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Location;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.Project;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.EmailService;
+import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ListWaitingSending;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.LocationService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.service.ProjectService;
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.viewmodel.ProjectViewModel;
@@ -34,6 +37,12 @@ public class ProjectController extends CommonController<Project, ProjectService>
 	@Autowired
 	private JwtService jwtService;
 
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private ListWaitingSending listWaitingSendingService;
+	
     @LogExecutionTime
     @GetMapping
     public ResponseEntity<?> allProjects(/*@RequestHeader("Authorization") String header*/) {
@@ -101,6 +110,13 @@ public class ProjectController extends CommonController<Project, ProjectService>
 		}
 		Project projectToClose = project.get();
 		projectToClose.close();
+		
+		String subject = "Cierre de Proyecto";
+		String text = "Proyecto " + projectToClose.getName() + " cerrado.";
+		for(UserDonator user : listWaitingSendingService.getUsers(projectToClose.getId())){
+			emailService.sendSimpleMessage(user.getMail(), subject, text);
+		}
+		
 		service.save(projectToClose);
 		return new ResponseEntity<Project>(projectToClose, HttpStatus.OK);
 	}
