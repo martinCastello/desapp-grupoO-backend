@@ -1,7 +1,7 @@
 HELP.md
 .gradle
 /build/
-/var/
+\\var\\
 
 # Ignore Gradle GUI config
 gradle-app.setting
