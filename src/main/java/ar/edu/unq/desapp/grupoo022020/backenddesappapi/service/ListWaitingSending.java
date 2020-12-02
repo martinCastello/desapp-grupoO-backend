@@ -5,11 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import ar.edu.unq.desapp.grupoo022020.backenddesappapi.model.UserDonator;
 
-@Service
+@Component
 public class ListWaitingSending {
 	
 	private Map<Integer, List<UserDonator>> users = new HashMap<Integer, List<UserDonator>>();

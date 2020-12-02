@@ -55,7 +55,7 @@ public class InitServiceInMemory {
 	private void fireInitialData() throws Exception {
 		
 		/* Users create */
-		UserDonator mariel = new UserDonator("mariel", "mariel@gmail.com", "marielNick", "pass");
+		UserDonator mariel = new UserDonator("mariel", "s.mariel.lopez1995@gmail.com", "marielNick", "pass");
 		UserDonator carina = new UserDonator("carina", "carina@gmail.com", "carinaNick", "pass");
 		UserDonator juana = new UserDonator("juana", "escobargisele1@gmail.com", "juanaNick", "pass");
 		AdminUser administrador = new AdminUser("administrador", "administrador@gmail.com", "administradorNick", "pass");

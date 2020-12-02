@@ -112,7 +112,7 @@ public class ProjectController extends CommonController<Project, ProjectService>
 		projectToClose.close();
 		
 		String subject = "Cierre de Proyecto";
-		String text = "Proyecto " + projectToClose.getName() + " cerrado.";
+		String text = projectToClose.getName() + " cerrado.";
 		for(UserDonator user : listWaitingSendingService.getUsers(projectToClose.getId())){
 			emailService.sendSimpleMessage(user.getMail(), subject, text);
 		}
