@@ -57,7 +57,7 @@ public class InitServiceInMemory {
 		/* Users create */
 		UserDonator mariel = new UserDonator("mariel", "mariel@gmail.com", "marielNick", "pass");
 		UserDonator carina = new UserDonator("carina", "carina@gmail.com", "carinaNick", "pass");
-		UserDonator juana = new UserDonator("juana", "juana@gmail.com", "juanaNick", "pass");
+		UserDonator juana = new UserDonator("juana", "escobargisele1@gmail.com", "juanaNick", "pass");
 		AdminUser administrador = new AdminUser("administrador", "administrador@gmail.com", "administradorNick", "pass");
 		userDonatorService.save(mariel);
 		userDonatorService.save(carina);
