@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -103,22 +104,32 @@ public class ProjectController extends CommonController<Project, ProjectService>
 	}
 	
 	@PostMapping("close/{id}")
-	public ResponseEntity<?> closeById(@PathVariable String id) {
-		Optional<Project> project = this.service.findByID(Integer.parseInt(id));
-		if (project.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		Project projectToClose = project.get();
-		projectToClose.close();
+	public ResponseEntity<?> closeById(@PathVariable String id, @RequestHeader("Authorization") String header) {
+		String token = header.split(" ")[1];
+    	try {
+    		if(jwtService.hasTokenExpired(token)) {
+        		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        	}else {
+        		Optional<Project> project = this.service.findByID(Integer.parseInt(id));
+        		if (project.isEmpty()) {
+        			return ResponseEntity.notFound().build();
+        		}
+        		Project projectToClose = project.get();
+        		projectToClose.close();
+        		
+        		String subject = "Cierre de Proyecto";
+        		String text = projectToClose.getName() + " cerrado.";
+        		for(UserDonator user : listWaitingSendingService.getUsers(projectToClose.getId())){
+        			emailService.sendSimpleMessage(user.getMail(), subject, text);
+        		}
+        		
+        		service.save(projectToClose);
+        		return new ResponseEntity<Project>(projectToClose, HttpStatus.OK);
+        	}
+    	}catch(Exception e) {
+    		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    	}
 		
-		String subject = "Cierre de Proyecto";
-		String text = projectToClose.getName() + " cerrado.";
-		for(UserDonator user : listWaitingSendingService.getUsers(projectToClose.getId())){
-			emailService.sendSimpleMessage(user.getMail(), subject, text);
-		}
-		
-		service.save(projectToClose);
-		return new ResponseEntity<Project>(projectToClose, HttpStatus.OK);
 	}
    
 }
