@@ -92,6 +92,9 @@ public class ProjectController extends CommonController<Project, ProjectService>
 			Project proj;
 			if (alreadyExist) {
 				proj  = this.service.findByID(project.getProjectId()).get();
+				proj.setName(project.getName());
+				proj.setStartDate(startDate);
+				proj.setEndDate(endDate);
 			} else {
 				proj = new Project(project.getName(), endDate, startDate, location);
 			}

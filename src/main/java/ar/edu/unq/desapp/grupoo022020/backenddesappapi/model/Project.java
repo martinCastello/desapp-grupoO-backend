@@ -28,7 +28,7 @@ import ar.edu.unq.desapp.grupoo022020.backenddesappapi.utils.DateUtils;
 @Entity
 @SequenceGenerator(name = "SEQ_PROJECT", initialValue = 1, allocationSize = 1, sequenceName = "SEQ_PROJECT")
 public class Project implements Serializable{
-	
+
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_PROJECT")
@@ -85,6 +85,20 @@ public class Project implements Serializable{
 	public void validationDates() throws Exception {
 		if(this.getStartDate().after(this.getEndDate()))
 			throw new Exception("Inconsistency in dates");
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setStartDate(Date startDate) throws Exception {
+		this.startDate = startDate;
+		this.validationDates();
+	}
+
+	public void setEndDate(Date endDate) throws Exception {
+		this.validationDates();
+		this.endDate = endDate;
 	}
 
 	public Integer getFactor() {
